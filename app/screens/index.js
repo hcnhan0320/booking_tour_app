@@ -8,9 +8,11 @@ import VerificationScreen from './VerificationScreen';
 
 import HomeScreen from './HomeScreen';
 import RestaurantScreen from './RestaurantScreen';
-
 import CartScreen from './CartScreen';
+import ProfileScreen from './ProfileScreen';
+import SavedScreen from './SavedScreen';
 
+import TourDetailScreen from './TourDetailScreen';
 export {
    SplashScreen,
    OnboardingScreen,
@@ -22,4 +24,7 @@ export {
    HomeScreen,
    RestaurantScreen,
    CartScreen,
+   ProfileScreen,
+   SavedScreen,
+   TourDetailScreen,
 };

@@ -95,24 +95,24 @@ const SignupScreen = ({ navigation }) => {
    const checkUserExist = async (type, value) => {
       if (value?.length > 0) {
          AuthenticationService.checkUserExist(type, value).then((response) => {
-            console.log(response);
             if (response?.status) {
                type === 'email' && emailErrorMessage
                   ? setEmailErrorMessage('')
                   : null;
-               type === 'email' ? setEmailState('valid') : null;
+
                type === 'username' && usernameErrorMessage
                   ? setUsernameErrorMessage('')
                   : null;
+               type === 'email' ? setEmailState('valid') : null;
                type === 'username' ? setUsernameState('valid') : null;
             } else {
                type === 'email'
                   ? setEmailErrorMessage(response?.message)
                   : null;
-               type === 'email' ? setEmailState('invalid') : null;
                type === 'username'
                   ? setUsernameErrorMessage(response?.message)
                   : null;
+               type === 'email' ? setEmailState('invalid') : null;
                type === 'username' ? setUsernameState('invalid') : null;
             }
          });
@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
       flex: 1,
    },
    signinButton: {
-      backgroundColor: Colors.DEFAULT_GREEN,
+      backgroundColor: Colors.DEFAULT_ORANGE,
       borderRadius: 8,
       marginHorizontal: 20,
       height: Display.setHeight(6),

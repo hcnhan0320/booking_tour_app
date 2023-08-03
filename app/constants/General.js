@@ -1,21 +1,21 @@
 const ONBOARDING_CONTENTS = [
    {
       image: 'DISCOVER',
-      title: 'Discover places near you',
+      title: 'Discover the world',
       content:
-         'We make it simple to find your favorite food. Enter your address and let us do the rest.',
+         'Sign up and discover new destinations, plan your trip, and enjoy unforgettable experiences around the world with our travel app.',
    },
    {
-      image: 'FAVORITE',
-      title: 'Order your favorite',
+      image: 'BOOKING',
+      title: 'Easy hotel booking',
       content:
-         'When you order eat street, we will hook you up with exclusive coupons, special and rewards',
+         'Use our app to quickly and easily search for and book hotels. Stay up-to-date with special promotions and enjoy great amenities at hotels around the world.',
    },
    {
-      image: 'DELIVER',
-      title: 'Fastest Delivery',
+      image: 'EXPERIENCE',
+      title: 'Unforgettable travel experiences',
       content:
-         'We make food ordering fast, simple and free - No matter if you order online or cash.',
+         'Experience unforgettable travel moments with our travel app. Learn about local activities and attractions, book tour tickets, and discover unique cultures and cuisines at your destination.',
    },
 ];
 

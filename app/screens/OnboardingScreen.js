@@ -86,7 +86,7 @@ const OnboardingScreen = ({ navigation }) => {
             <TouchableOpacity
                style={styles.getStartedButton}
                activeOpacity={0.6}
-               onPress={() => navigate()}
+               onPress={() => navigation.navigate('SignIn')}
             >
                <Text style={styles.getStartedButtonText}>Get Started</Text>
             </TouchableOpacity>
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
    page: {
       height: 8,
       width: 15,
-      backgroundColor: Colors.DEFAULT_GREEN,
+      backgroundColor: Colors.DEFAULT_ORANGE,
       borderRadius: 32,
       marginHorizontal: 5,
    },
@@ -144,13 +144,13 @@ const styles = StyleSheet.create({
       lineHeight: 16 * 1.4,
    },
    button: {
-      backgroundColor: Colors.LIGHT_GREEN,
+      backgroundColor: Colors.LIGHT_ORANGE,
       paddingVertical: 20,
       paddingHorizontal: 10,
       borderRadius: 32,
    },
    getStartedButton: {
-      backgroundColor: Colors.DEFAULT_GREEN,
+      backgroundColor: Colors.DEFAULT_ORANGE,
       paddingHorizontal: 50,
       paddingVertical: 10,
       borderRadius: 8,

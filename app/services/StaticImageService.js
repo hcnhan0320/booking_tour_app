@@ -19,4 +19,13 @@ const getGalleryImage = (
 ) =>
    `${ApiConstants.STATIC_IMAGE.BASE_URL}/gallery/${size}/${quality}/${imageId}.png`;
 
-export default { getFlagIcon, getLogo, getPoster, getGalleryImage };
+const getTourImage = (imageId) =>
+   `${ApiConstants.STATIC_IMAGE.BASE_URL}/tour/${imageId}.jpg`;
+
+export default {
+   getFlagIcon,
+   getLogo,
+   getPoster,
+   getGalleryImage,
+   getTourImage,
+};

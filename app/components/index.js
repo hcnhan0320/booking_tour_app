@@ -3,19 +3,20 @@ import Separator from './Separator';
 import ToggleButton from './ToggleButton';
 import FlagItem from './FlagItem';
 import CategoryMenuItem from './CategoryMenuItem';
-import RestaurantCard from './RestaurantCard';
+import TourCard from './TourCard';
 import RestaurantMediumCard from './RestaurantMediumCard';
 import CategoryListItem from './CategoryListItem';
 import FoodCard from './FoodCard';
-
+import CircleCardImage from './CircleCardImage';
 export {
    OnboardingCard,
    Separator,
    ToggleButton,
    FlagItem,
    CategoryMenuItem,
-   RestaurantCard,
+   TourCard,
    RestaurantMediumCard,
    CategoryListItem,
    FoodCard,
+   CircleCardImage,
 };

@@ -4,6 +4,7 @@ import StorageService from './StorageService';
 import RestaurantService from './RestaurantService';
 import UserService from './UserService';
 import CartService from './CartService';
+import TourService from './TourService';
 
 export {
    StaticImageService,
@@ -12,4 +13,5 @@ export {
    RestaurantService,
    UserService,
    CartService,
+   TourService,
 };

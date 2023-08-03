@@ -250,11 +250,11 @@ const styles = StyleSheet.create({
    forgotPasswordText: {
       fontSize: 12,
       lineHeight: 12 * 1.4,
-      color: Colors.DEFAULT_GREEN,
+      color: Colors.DEFAULT_ORANGE,
       fontFamily: Fonts.POPPINS_BOLD,
    },
    signinButton: {
-      backgroundColor: Colors.DEFAULT_GREEN,
+      backgroundColor: Colors.DEFAULT_ORANGE,
       borderRadius: 8,
       marginHorizontal: 20,
       height: Display.setHeight(6),
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
    signupText: {
       fontSize: 13,
       lineHeight: 13 * 1.4,
-      color: Colors.DEFAULT_GREEN,
+      color: Colors.DEFAULT_ORANGE,
       fontFamily: Fonts.POPPINS_MEDIUM,
       marginLeft: 5,
    },

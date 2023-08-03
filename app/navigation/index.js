@@ -11,6 +11,7 @@ import {
    VerificationScreen,
    HomeScreen,
    RestaurantScreen,
+   TourDetailScreen,
 } from '../screens';
 import { useSelector, useDispatch } from 'react-redux';
 import { GeneralAction } from '../actions';
@@ -41,7 +42,10 @@ const AppNav = () => {
                         component={OnboardingScreen}
                      />
                   )}
-
+                  <Stack.Screen
+                     name="Onboarding"
+                     component={OnboardingScreen}
+                  />
                   <Stack.Screen name="SignIn" component={SigninScreen} />
                   <Stack.Screen name="SignUp" component={SignupScreen} />
                   <Stack.Screen
@@ -63,6 +67,10 @@ const AppNav = () => {
                   <Stack.Screen
                      name="Restaurant"
                      component={RestaurantScreen}
+                  />
+                  <Stack.Screen
+                     name="TourDetail"
+                     component={TourDetailScreen}
                   />
                </>
             )}

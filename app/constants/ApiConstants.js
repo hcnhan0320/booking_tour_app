@@ -9,7 +9,7 @@ const COUNTRY_FLAG = {
 
 const STATIC_IMAGE = {
    BASE_URL: `${BACKEND_BASE_URL}/images`,
-   TYPE: { POSTER: 'poster', LOGO: 'logo', GALLERY: 'gallery' },
+   TYPE: { POSTER: 'poster', LOGO: 'logo', GALLERY: 'gallery', TOUR: 'tour' },
    SIZE: { SQUARE: 'square', LANDSCAPE: 'landscape', PORTRAIT: 'portrait' },
    QUALITY: { SD: 'sd', HD: 'hd' },
 };
@@ -23,6 +23,7 @@ const BACKEND_API = {
    REFRESH_TOKEN: '/refresh-token',
    RESTAURANT: '/restaurant',
    CART: '/cart',
+   TOUR: '/tour',
 };
 
 export default { COUNTRY_FLAG, BACKEND_API, STATIC_IMAGE };

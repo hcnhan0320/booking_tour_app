@@ -13,7 +13,6 @@ const getCartItems = async () => {
          }
       );
       if (response?.status === 200) {
-         console.log(response?.data?.data);
          return {
             status: true,
             message: `Cart data fetched`,
