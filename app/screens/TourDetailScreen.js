@@ -23,25 +23,37 @@ import { LinearGradient } from 'expo-linear-gradient';
 const tabs = [
    {
       id: 1,
-      name: 'Description',
+      name: 'Mô tả',
    },
    {
       id: 2,
-      name: 'Detail',
+      name: 'Thông tin',
    },
    {
       id: 3,
-      name: 'Review',
+      name: 'Đánh giá',
    },
 ];
 
-const TourDetailScreen = ({ route }) => {
+const currencyFormat = (number) => {
+   const formatter = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+   });
+   return formatter.format(number);
+};
+
+const discountPrice = (number, discount) => {
+   return number - (number * discount) / 100;
+};
+
+const TourDetailScreen = ({ route, navigation }) => {
    const { tourId } = route.params;
    const [detailsTour, setDetailsTour] = useState(null);
    const [imagesTour, setImagesTour] = useState([]);
 
    //tabs hook
-   const [tabActive, setTabActive] = useState('Description');
+   const [tabActive, setTabActive] = useState('Mô tả');
    const setTabFilter = (tabActive) => {
       setTabActive(tabActive);
    };
@@ -64,20 +76,26 @@ const TourDetailScreen = ({ route }) => {
          />
          <Separator height={StatusBar.currentHeight} />
          <View style={styles.headerContainer}>
-            <View style={styles.headerIcon}>
+            <TouchableOpacity
+               style={styles.headerIcon}
+               onPress={() => {
+                  navigation.goBack();
+               }}
+            >
                <AntDesign name="arrowleft" size={18} />
-            </View>
-            <Text style={styles.headerText}>Details</Text>
+            </TouchableOpacity>
+            <Text style={styles.headerText}>Chi tiết tour</Text>
             <View style={styles.headerIcon}>
                <Entypo name="dots-three-horizontal" size={18} />
             </View>
          </View>
+
          <View style={styles.imgTourContainer}>
             <Image
                source={{
                   uri: StaticImageService.getTourImage(imagesTour[0]),
                }}
-               resizeMethod="cover"
+               resizeMode="cover"
                style={styles.posterStyle}
             />
             <LinearGradient
@@ -116,82 +134,96 @@ const TourDetailScreen = ({ route }) => {
                </View>
             </View>
          </View>
-         <ScrollView>
-            <View style={styles.listImg}>
+
+         {/* <View style={styles.listImg}>
                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                   {imagesTour.map((item) => {
                      return <CircleCardImage image={item} />;
                   })}
                </ScrollView>
-            </View>
-            <View style={styles.listTab}>
-               {tabs.map((tab, index) => {
-                  return (
-                     <TouchableOpacity
+            </View> */}
+         <View style={styles.listTab}>
+            {tabs.map((tab, index) => {
+               return (
+                  <TouchableOpacity
+                     style={[
+                        styles.btnTab,
+                        tab.name === tabActive && styles.btnTabActive,
+                     ]}
+                     onPress={() => {
+                        setTabFilter(tab.name);
+                     }}
+                  >
+                     <Text
                         style={[
-                           styles.btnTab,
-                           tab.name === tabActive && styles.btnTabActive,
+                           styles.btnText,
+                           tab.name === tabActive && styles.btnTextActive,
                         ]}
-                        onPress={() => {
-                           setTabFilter(tab.name);
-                        }}
                      >
-                        <Text
-                           style={[
-                              styles.btnText,
-                              tab.name === tabActive && styles.btnTextActive,
-                           ]}
-                        >
-                           {tab.name}
-                        </Text>
-                     </TouchableOpacity>
-                  );
-               })}
-            </View>
-            <View style={styles.contentTab}>
-               {tabActive === 'Description' ? (
+                        {tab.name}
+                     </Text>
+                  </TouchableOpacity>
+               );
+            })}
+         </View>
+         <View style={styles.contentTab}>
+            {tabActive === 'Mô tả' ? (
+               <Text style={styles.descText}>
+                  {detailsTour?.content?.description}
+               </Text>
+            ) : tabActive === 'Thông tin' ? (
+               <>
                   <Text style={styles.descText}>
-                     {detailsTour?.content?.description}
+                     <Text style={styles.boldText}>Mã tour: </Text>{' '}
+                     {detailsTour?.code}
                   </Text>
-               ) : tabActive === 'Detail' ? (
-                  <>
-                     <Text style={styles.descText}>
-                        <Text style={styles.boldText}>Mã tour: </Text>{' '}
-                        {detailsTour?.code}
-                     </Text>
-                     <Text style={styles.descText}>
-                        <Text style={styles.boldText}>Khởi hành tại: </Text>
-                        {detailsTour?.departure}
-                     </Text>
-                     <Text style={styles.descText}>
-                        <Text style={styles.boldText}>Lịch trình: </Text>
-                        {detailsTour?.schedule}
-                     </Text>
-                     <Text style={styles.descText}>
-                        <Text style={styles.boldText}>Phương tiện: </Text>
-                        {detailsTour?.transport}
-                     </Text>
-                     <Text style={styles.descText}>
-                        <Text style={styles.boldText}>Thời gian: </Text>
-                        {detailsTour?.duration}
-                     </Text>
-                     <Text style={styles.descText}>
-                        <Text style={styles.boldText}>Hình thức: </Text>
-                        {detailsTour?.type}
-                     </Text>
-                  </>
-               ) : (
-                  <Text></Text>
-               )}
-            </View>
-         </ScrollView>
-         <View style={styles.overlayInfo}>
-            <View>
-               <Text>Giá gốc</Text>
-               <Text>Giá khuyến mãi</Text>
-            </View>
-            <View>
-               <Text>Đặt tour</Text>
+                  <Text style={styles.descText}>
+                     <Text style={styles.boldText}>Khởi hành tại: </Text>
+                     {detailsTour?.departure}
+                  </Text>
+                  <Text style={styles.descText}>
+                     <Text style={styles.boldText}>Lịch trình: </Text>
+                     {detailsTour?.schedule}
+                  </Text>
+                  <Text style={styles.descText}>
+                     <Text style={styles.boldText}>Phương tiện: </Text>
+                     {detailsTour?.transport}
+                  </Text>
+                  <Text style={styles.descText}>
+                     <Text style={styles.boldText}>Thời gian: </Text>
+                     {detailsTour?.duration}
+                  </Text>
+                  <Text style={styles.descText}>
+                     <Text style={styles.boldText}>Hình thức: </Text>
+                     {detailsTour?.type}
+                  </Text>
+               </>
+            ) : (
+               <Text></Text>
+            )}
+         </View>
+         <Separator width={20} />
+
+         <View style={styles.overlayBottom}>
+            <View style={styles.overlayInfo}>
+               <View style={styles.priceInfo}>
+                  <Text style={styles.priceText}>
+                     {currencyFormat(detailsTour?.price?.adult)}
+                  </Text>
+                  <Text style={styles.saleText}>
+                     {currencyFormat(
+                        discountPrice(
+                           detailsTour?.price?.adult,
+                           detailsTour?.promotion
+                        )
+                     )}
+                  </Text>
+               </View>
+               <View style={styles.bookingBtn}>
+                  <Text style={styles.bookingText}>
+                     Đặt tour <AntDesign name="arrowright" size={18} />
+                  </Text>
+               </View>
             </View>
          </View>
       </SafeAreaView>
@@ -326,7 +358,6 @@ const styles = StyleSheet.create({
    contentTab: {
       marginTop: 20,
       paddingHorizontal: 30,
-
       justifyContent: 'space-between',
    },
    descText: {
@@ -339,5 +370,62 @@ const styles = StyleSheet.create({
       color: Colors.SECONDARY_ORANGE,
       fontFamily: Fonts.POPPINS_SEMI_BOLD,
       lineHeight: 14 * 1.4,
+   },
+   overlayBottom: {
+      width: '100%',
+      position: 'absolute',
+      paddingHorizontal: 10,
+      bottom: 30,
+   },
+   overlayInfo: {
+      backgroundColor: Colors.THIRD_WHITE,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 20,
+      paddingVertical: 5,
+      borderRadius: 15,
+      // add shadow
+      shadowColor: Colors.DEFAULT_BLACK,
+      shadowOffset: {
+         width: 0,
+         height: 4,
+      },
+      shadowOpacity: 0.12,
+      shadowRadius: 3.84,
+   },
+   bookingBtn: {
+      backgroundColor: Colors.DEFAULT_ORANGE,
+      paddingVertical: 10,
+      paddingHorizontal: 25,
+      borderRadius: 10,
+      // add shadow
+      shadowColor: Colors.DEFAULT_ORANGE,
+      shadowOffset: {
+         width: 0,
+         height: 4,
+      },
+      shadowOpacity: 0.5,
+      shadowRadius: 3.84,
+   },
+   bookingText: {
+      color: Colors.DEFAULT_WHITE,
+      fontSize: 20,
+      fontFamily: Fonts.POPPINS_SEMI_BOLD,
+      lineHeight: 20 * 1.4,
+   },
+   priceText: {
+      color: Colors.DEFAULT_GREY,
+      fontSize: 18,
+      fontFamily: Fonts.POPPINS_SEMI_BOLD,
+      lineHeight: 18 * 1.4,
+      textDecorationLine: 'line-through',
+      textAlign: 'center',
+   },
+   saleText: {
+      color: Colors.DEFAULT_BLACK,
+      fontSize: 24,
+      fontFamily: Fonts.POPPINS_SEMI_BOLD,
+      lineHeight: 24 * 1.4,
    },
 });
