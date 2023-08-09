@@ -55,11 +55,6 @@ const FavoriteCard = ({
             itemHeight.value = withTiming(0);
             marginVertical.value = withTiming(0);
             opacity.value = withTiming(0);
-            // useDerivedValue(() => {
-            //    if (opacity.value == 1) {
-            //       runOnJS(removeFavorite)(_id);
-            //    }
-            // });
          } else {
             translateX.value = withTiming(0);
          }
@@ -90,13 +85,13 @@ const FavoriteCard = ({
    });
 
    const endPanGesture = () => {
-      if (opacity.value == 1) {
+      if (translateX.value < TRANSLATE_X_THRESHOLD) {
          removeFavorite(_id);
       }
    };
 
    return (
-      <Animated.View style={[styles.container, rContainerStyle]} on>
+      <Animated.View style={[styles.container, rContainerStyle]} key={_id}>
          <Animated.View style={[styles.deleteBox, rIconContainerStyle]}>
             <FontAwesome5
                name="trash-alt"
@@ -104,7 +99,10 @@ const FavoriteCard = ({
                color={Colors.DEFAULT_RED}
             />
          </Animated.View>
-         <PanGestureHandler onGestureEvent={panGesture} onEnded={endPanGesture}>
+         <PanGestureHandler
+            onGestureEvent={panGesture}
+            // onEnded={endPanGesture}
+         >
             <Animated.View style={[styles.favoriteContainer, rStyle]}>
                <Image
                   source={{ uri: StaticImageService.getTourImage(image[0]) }}
@@ -129,13 +127,6 @@ const FavoriteCard = ({
                         color={Colors.DEFAULT_YELLOW}
                      />
                      <Text style={styles.durationText}>{duration}</Text>
-                     {/* <TouchableOpacity
-                        onPress={() => {
-                           removeFavorite(_id);
-                        }}
-                     >
-                        <Text>Click</Text>
-                     </TouchableOpacity> */}
                   </View>
                </View>
             </Animated.View>

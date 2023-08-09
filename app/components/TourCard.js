@@ -13,7 +13,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 const truncate = (input) =>
-   input?.length > 25 ? `${input.substring(0, 25)}...` : input;
+   input?.length > 23 ? `${input.substring(0, 23)}...` : input;
 
 const TourCard = ({ _id, title, image, departure, navigate }) => {
    const dispatch = useDispatch();
