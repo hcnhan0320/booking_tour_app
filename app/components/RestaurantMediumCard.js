@@ -5,33 +5,25 @@ import { Colors, Fonts, Images } from '../constants';
 import { Display } from '../utils';
 import { StaticImageService } from '../services';
 
-const RestaurantMediumCard = ({
-   name,
-   images: { logo },
-   time,
-   distance,
-   tags,
-}) => {
+const RestaurantMediumCard = ({ _id, title, image, departure, navigate }) => {
    return (
       <TouchableOpacity style={styles.container} activeOpacity={0.8}>
          <View>
             <Image
-               source={{ uri: StaticImageService.getLogo(logo) }}
+               source={{ uri: StaticImageService.getTourImage(image[0]) }}
                style={styles.posterStyle}
             />
          </View>
          <View style={styles.labelContainer}>
             <View style={styles.titleContainer}>
-               <Text style={styles.titleText}>{name}</Text>
+               <Text style={styles.titleText}>{title}</Text>
                <View style={styles.rowAndCenter}>
                   <FontAwesome />
                   <Text style={styles.ratingText}>4.2</Text>
                   <Text style={styles.reviewsText}>({233})</Text>
                </View>
             </View>
-            <Text style={styles.tagsText}>
-               {tags?.slice(0, 5)?.join(' • ')}
-            </Text>
+            <Text style={styles.tagsText}>22</Text>
             <View style={styles.deliveryDetailsContainer}>
                <View style={styles.rowAndCenter}>
                   <Image
@@ -45,7 +37,9 @@ const RestaurantMediumCard = ({
                      source={Images.DELIVERY_TIME}
                      style={styles.deliveryDetailsIcon}
                   />
-                  <Text style={styles.deliveryDetailsText}>{time} min</Text>
+                  <Text style={styles.deliveryDetailsText}>
+                     {departure} min
+                  </Text>
                </View>
                <View style={styles.rowAndCenter}>
                   <Image style={styles.deliveryDetailsIcon} />

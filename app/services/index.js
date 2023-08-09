@@ -5,6 +5,7 @@ import RestaurantService from './RestaurantService';
 import UserService from './UserService';
 import CartService from './CartService';
 import TourService from './TourService';
+import FavoriteService from './FavoriteService';
 
 export {
    StaticImageService,
@@ -14,4 +15,5 @@ export {
    UserService,
    CartService,
    TourService,
+   FavoriteService,
 };

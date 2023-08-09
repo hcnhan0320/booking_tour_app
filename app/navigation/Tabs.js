@@ -1,6 +1,11 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { SavedScreen, CartScreen, HomeScreen, ProfileScreen } from '../screens';
+import {
+   FavoriteScreen,
+   CartScreen,
+   HomeScreen,
+   ProfileScreen,
+} from '../screens';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Entypo from '@expo/vector-icons/Entypo';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -37,7 +42,7 @@ export default () => (
       />
       <BottomTabs.Screen
          name="Bookmark"
-         component={SavedScreen}
+         component={FavoriteScreen}
          options={{
             tabBarIcon: ({ color }) => (
                <Ionicons name="heart" size={23} color={color} />

@@ -8,6 +8,8 @@ import RestaurantMediumCard from './RestaurantMediumCard';
 import CategoryListItem from './CategoryListItem';
 import FoodCard from './FoodCard';
 import CircleCardImage from './CircleCardImage';
+import FavoriteCard from './FavoriteCard';
+
 export {
    OnboardingCard,
    Separator,
@@ -19,4 +21,5 @@ export {
    CategoryListItem,
    FoodCard,
    CircleCardImage,
+   FavoriteCard,
 };

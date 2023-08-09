@@ -10,7 +10,7 @@ import HomeScreen from './HomeScreen';
 import RestaurantScreen from './RestaurantScreen';
 import CartScreen from './CartScreen';
 import ProfileScreen from './ProfileScreen';
-import SavedScreen from './SavedScreen';
+import FavoriteScreen from './FavoriteScreen';
 
 import TourDetailScreen from './TourDetailScreen';
 export {
@@ -25,6 +25,6 @@ export {
    RestaurantScreen,
    CartScreen,
    ProfileScreen,
-   SavedScreen,
+   FavoriteScreen,
    TourDetailScreen,
 };

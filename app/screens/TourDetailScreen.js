@@ -7,8 +7,12 @@ import {
    Image,
    ScrollView,
    TouchableOpacity,
+   FlatList,
+   Dimensions,
+   Animated,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Colors, Fonts } from '../constants';
 import { CircleCardImage, Separator } from '../components';
 
@@ -19,6 +23,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { StaticImageService, TourService } from '../services';
 import { Display } from '../utils';
 import { LinearGradient } from 'expo-linear-gradient';
+import { FavoriteAction } from '../actions';
 
 const tabs = [
    {
@@ -47,7 +52,12 @@ const discountPrice = (number, discount) => {
    return number - (number * discount) / 100;
 };
 
+const { width, height } = Dimensions.get('screen');
+const ITEM_WIDTH = width * 0.76;
+const ITEM_HEIGHT = ITEM_WIDTH * 1.27;
+
 const TourDetailScreen = ({ route, navigation }) => {
+   // get params
    const { tourId } = route.params;
    const [detailsTour, setDetailsTour] = useState(null);
    const [imagesTour, setImagesTour] = useState([]);
@@ -58,6 +68,9 @@ const TourDetailScreen = ({ route, navigation }) => {
       setTabActive(tabActive);
    };
 
+   // animated image
+   const scrollX = useRef(new Animated.Value(0)).current;
+
    useEffect(() => {
       TourService.getOneTourById(tourId).then((response) => {
          if (response?.status) {
@@ -66,6 +79,22 @@ const TourDetailScreen = ({ route, navigation }) => {
          }
       });
    }, []);
+
+   const dispatch = useDispatch();
+   const isFavorited = useSelector(
+      (state) =>
+         state?.favoriteState?.favorites?.filter(
+            (item) => item?.tourId === tourId
+         )?.length > 0
+   );
+
+   const addFavorite = () => dispatch(FavoriteAction.addFavorite({ tourId }));
+   const removeFavorite = () =>
+      dispatch(FavoriteAction.removeFavorite({ tourId }));
+
+   if (!detailsTour?.image) {
+      return <Text>Loading...</Text>;
+   }
 
    return (
       <SafeAreaView style={styles.container}>
@@ -91,57 +120,96 @@ const TourDetailScreen = ({ route, navigation }) => {
          </View>
 
          <View style={styles.imgTourContainer}>
-            <Image
-               source={{
-                  uri: StaticImageService.getTourImage(imagesTour[0]),
+            <Animated.FlatList
+               data={detailsTour?.image}
+               keyExtractor={(item) => item.index}
+               horizontal
+               showsHorizontalScrollIndicator={false}
+               pagingEnabled
+               onScroll={Animated.event(
+                  [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                  { useNativeDriver: true }
+               )}
+               renderItem={({ item, index }) => {
+                  const inputRange = [
+                     (index - 1) * width,
+                     index * width,
+                     (index + 1) * width,
+                  ];
+                  const translateX = scrollX.interpolate({
+                     inputRange,
+                     outputRange: [-width * 0.7, 0, width * 0.7],
+                  });
+                  return (
+                     <View
+                        style={{
+                           width,
+                           height: ITEM_WIDTH * 1.47,
+                           justifyContent: 'center',
+                           alignItems: 'center',
+                        }}
+                     >
+                        <View
+                           style={{
+                              borderRadius: 18,
+                              shadowColor: Colors.DEFAULT_BLACK,
+                              shadowOpacity: 0.5,
+                              shadowRadius: 10,
+                              shadowOffset: {
+                                 width: 0,
+                                 height: 0,
+                              },
+                              padding: 12,
+                              backgroundColor: Colors.DEFAULT_WHITE,
+                           }}
+                        >
+                           <View
+                              style={{
+                                 width: ITEM_WIDTH,
+                                 height: ITEM_HEIGHT,
+                                 overflow: 'hidden',
+                                 alignItems: 'center',
+                                 borderRadius: 18,
+                              }}
+                           >
+                              <Animated.Image
+                                 source={{
+                                    uri: StaticImageService.getTourImage(
+                                       imagesTour[index]
+                                    ),
+                                 }}
+                                 style={{
+                                    width: ITEM_WIDTH * 1.4,
+                                    height: ITEM_HEIGHT,
+                                    resizeMode: 'cover',
+                                    transform: [
+                                       {
+                                          translateX,
+                                       },
+                                    ],
+                                 }}
+                              />
+                           </View>
+                           <TouchableOpacity
+                              activeOpacity={1}
+                              style={styles.addFavoriteBtn}
+                              onPress={() => {
+                                 isFavorited ? removeFavorite() : addFavorite();
+                              }}
+                           >
+                              <AntDesign
+                                 name={isFavorited ? 'heart' : 'hearto'}
+                                 size={20}
+                                 color={Colors.DEFAULT_ORANGE}
+                              />
+                           </TouchableOpacity>
+                        </View>
+                     </View>
+                  );
                }}
-               resizeMode="cover"
-               style={styles.posterStyle}
             />
-            <LinearGradient
-               colors={['transparent', 'rgba(0,0,0,0.9)']}
-               style={styles.overlay}
-            ></LinearGradient>
-            {/* <View style={styles.overlay}></View> */}
-            <View style={styles.infoTour}>
-               <View>
-                  <Text style={styles.title}>{detailsTour?.title}</Text>
-               </View>
-               <View style={styles.subTitle}>
-                  <View style={styles.destination}>
-                     <Ionicons
-                        name="location"
-                        size={16}
-                        color={Colors.LIGHT_GREY}
-                     />
-                     <Text style={styles.destinationText}>
-                        {detailsTour?.departure}
-                     </Text>
-                  </View>
-                  <View style={styles.subIcon}>
-                     <AntDesign
-                        name="sharealt"
-                        size={20}
-                        color={Colors.LIGHT_GREY}
-                     />
-                     <AntDesign
-                        name="hearto"
-                        size={20}
-                        color={Colors.LIGHT_GREY}
-                        style={{ paddingLeft: 15 }}
-                     />
-                  </View>
-               </View>
-            </View>
          </View>
 
-         {/* <View style={styles.listImg}>
-               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                  {imagesTour.map((item) => {
-                     return <CircleCardImage image={item} />;
-                  })}
-               </ScrollView>
-            </View> */}
          <View style={styles.listTab}>
             {tabs.map((tab, index) => {
                return (
@@ -166,42 +234,44 @@ const TourDetailScreen = ({ route, navigation }) => {
                );
             })}
          </View>
-         <View style={styles.contentTab}>
-            {tabActive === 'Mô tả' ? (
-               <Text style={styles.descText}>
-                  {detailsTour?.content?.description}
-               </Text>
-            ) : tabActive === 'Thông tin' ? (
-               <>
+         <ScrollView>
+            <View style={styles.contentTab}>
+               {tabActive === 'Mô tả' ? (
                   <Text style={styles.descText}>
-                     <Text style={styles.boldText}>Mã tour: </Text>{' '}
-                     {detailsTour?.code}
+                     {detailsTour?.content?.description}
                   </Text>
-                  <Text style={styles.descText}>
-                     <Text style={styles.boldText}>Khởi hành tại: </Text>
-                     {detailsTour?.departure}
-                  </Text>
-                  <Text style={styles.descText}>
-                     <Text style={styles.boldText}>Lịch trình: </Text>
-                     {detailsTour?.schedule}
-                  </Text>
-                  <Text style={styles.descText}>
-                     <Text style={styles.boldText}>Phương tiện: </Text>
-                     {detailsTour?.transport}
-                  </Text>
-                  <Text style={styles.descText}>
-                     <Text style={styles.boldText}>Thời gian: </Text>
-                     {detailsTour?.duration}
-                  </Text>
-                  <Text style={styles.descText}>
-                     <Text style={styles.boldText}>Hình thức: </Text>
-                     {detailsTour?.type}
-                  </Text>
-               </>
-            ) : (
-               <Text></Text>
-            )}
-         </View>
+               ) : tabActive === 'Thông tin' ? (
+                  <>
+                     <Text style={styles.descText}>
+                        <Text style={styles.boldText}>Mã tour: </Text>{' '}
+                        {detailsTour?.code}
+                     </Text>
+                     <Text style={styles.descText}>
+                        <Text style={styles.boldText}>Khởi hành tại: </Text>
+                        {detailsTour?.departure}
+                     </Text>
+                     <Text style={styles.descText}>
+                        <Text style={styles.boldText}>Lịch trình: </Text>
+                        {detailsTour?.schedule}
+                     </Text>
+                     <Text style={styles.descText}>
+                        <Text style={styles.boldText}>Phương tiện: </Text>
+                        {detailsTour?.transport}
+                     </Text>
+                     <Text style={styles.descText}>
+                        <Text style={styles.boldText}>Thời gian: </Text>
+                        {detailsTour?.duration}
+                     </Text>
+                     <Text style={styles.descText}>
+                        <Text style={styles.boldText}>Hình thức: </Text>
+                        {detailsTour?.type}
+                     </Text>
+                  </>
+               ) : (
+                  <Text></Text>
+               )}
+            </View>
+         </ScrollView>
          <Separator width={20} />
 
          <View style={styles.overlayBottom}>
@@ -221,7 +291,7 @@ const TourDetailScreen = ({ route, navigation }) => {
                </View>
                <View style={styles.bookingBtn}>
                   <Text style={styles.bookingText}>
-                     Đặt tour <AntDesign name="arrowright" size={18} />
+                     Tiếp tục <AntDesign name="arrowright" size={18} />
                   </Text>
                </View>
             </View>
@@ -263,12 +333,15 @@ const styles = StyleSheet.create({
       fontSize: 16,
    },
    imgTourContainer: {
-      marginTop: 20,
-      marginHorizontal: 30,
+      marginTop: 10,
    },
-   posterStyle: {
-      height: Display.setWidth(100),
-      borderRadius: 30,
+   addFavoriteBtn: {
+      position: 'absolute',
+      bottom: -10,
+      right: 30,
+      backgroundColor: Colors.DEFAULT_WHITE,
+      padding: 10,
+      borderRadius: 20,
    },
    overlay: {
       position: 'absolute',
@@ -375,7 +448,7 @@ const styles = StyleSheet.create({
       width: '100%',
       position: 'absolute',
       paddingHorizontal: 10,
-      bottom: 30,
+      bottom: 35,
    },
    overlayInfo: {
       backgroundColor: Colors.THIRD_WHITE,

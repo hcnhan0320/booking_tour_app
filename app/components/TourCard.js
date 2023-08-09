@@ -1,14 +1,34 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { FavoriteAction } from '../actions';
+
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+
 import { Colors, Fonts } from '../constants';
 import { StaticImageService } from '../services';
 import { LinearGradient } from 'expo-linear-gradient';
+
 import Ionicons from '@expo/vector-icons/Ionicons';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 const truncate = (input) =>
    input?.length > 25 ? `${input.substring(0, 25)}...` : input;
+
 const TourCard = ({ _id, title, image, departure, navigate }) => {
+   const dispatch = useDispatch();
+
+   const isFavorited = useSelector(
+      (state) =>
+         state?.favoriteState?.favorites?.filter((item) => item?.tourId === _id)
+            ?.length > 0
+   );
+
+   const addFavorite = () =>
+      dispatch(FavoriteAction.addFavorite({ tourId: _id }));
+   const removeFavorite = () =>
+      dispatch(FavoriteAction.removeFavorite({ tourId: _id }));
+
    return (
       <TouchableOpacity
          key={_id}
@@ -16,6 +36,19 @@ const TourCard = ({ _id, title, image, departure, navigate }) => {
          activeOpacity={0.8}
          onPress={() => navigate(_id)}
       >
+         <TouchableOpacity
+            activeOpacity={1}
+            style={styles.addFavoriteBtn}
+            onPress={() => {
+               isFavorited ? removeFavorite() : addFavorite();
+            }}
+         >
+            <AntDesign
+               name={isFavorited ? 'heart' : 'hearto'}
+               size={18}
+               color={Colors.DEFAULT_ORANGE}
+            />
+         </TouchableOpacity>
          <Image
             source={{ uri: StaticImageService.getTourImage(image[0]) }}
             style={styles.posterStyle}
@@ -59,6 +92,7 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.DEFAULT_WHITE,
       borderRadius: 25,
       marginVertical: 10,
+      // add shadow
       shadowColor: Colors.DEFAULT_BLACK,
       shadowOffset: {
          width: 0,
@@ -67,6 +101,15 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.12,
       shadowRadius: 3.84,
       elevation: 3,
+   },
+   addFavoriteBtn: {
+      position: 'absolute',
+      top: 20,
+      right: 20,
+      backgroundColor: Colors.DEFAULT_WHITE,
+      padding: 10,
+      borderRadius: 20,
+      zIndex: 1,
    },
    posterStyle: {
       width: 1920 * 0.15,

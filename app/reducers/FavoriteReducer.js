@@ -1,15 +1,15 @@
-import { CartAction } from '../actions';
+import { FavoriteAction } from '../actions';
 
 const initialState = {
-   cart: [],
+   favorites: [],
    isLoading: false,
 };
 
 export default (state = initialState, action) => {
    switch (action.type) {
-      case CartAction.types.GET_CART_ITEMS:
-         return { ...state, cart: action?.payload };
-      case CartAction.types.SET_IS_LOADING:
+      case FavoriteAction.types.GET_FAVORITES:
+         return { ...state, favorites: action?.payload };
+      case FavoriteAction.types.SET_IS_LOADING:
          return { ...state, isLoading: action?.payload };
       default:
          return state;
