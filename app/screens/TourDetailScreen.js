@@ -14,7 +14,7 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors, Fonts } from '../constants';
-import { CircleCardImage, Separator } from '../components';
+import { CircleCardImage, Separator, Toast } from '../components';
 
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -68,6 +68,9 @@ const TourDetailScreen = ({ route, navigation }) => {
       setTabActive(tabActive);
    };
 
+   // toast ref
+   const toastRef = useRef();
+
    // animated image
    const scrollX = useRef(new Animated.Value(0)).current;
 
@@ -104,6 +107,7 @@ const TourDetailScreen = ({ route, navigation }) => {
             translucent
          />
          <Separator height={StatusBar.currentHeight} />
+         <Toast ref={toastRef} />
          <View style={styles.headerContainer}>
             <TouchableOpacity
                style={styles.headerIcon}
@@ -194,7 +198,21 @@ const TourDetailScreen = ({ route, navigation }) => {
                               activeOpacity={1}
                               style={styles.addFavoriteBtn}
                               onPress={() => {
-                                 isFavorited ? removeFavorite() : addFavorite();
+                                 if (isFavorited) {
+                                    removeFavorite();
+                                    toastRef.current.show({
+                                       type: 'info',
+                                       text: 'Remove from favorites successful',
+                                       duration: 1500,
+                                    });
+                                 } else {
+                                    addFavorite();
+                                    toastRef.current.show({
+                                       type: 'info',
+                                       text: 'Add to favorites successful',
+                                       duration: 1500,
+                                    });
+                                 }
                               }}
                            >
                               <AntDesign

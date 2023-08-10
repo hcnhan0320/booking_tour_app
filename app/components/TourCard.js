@@ -15,7 +15,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 const truncate = (input) =>
    input?.length > 23 ? `${input.substring(0, 23)}...` : input;
 
-const TourCard = ({ _id, title, image, departure, navigate }) => {
+const TourCard = ({ _id, title, image, departure, toastRef, navigate }) => {
    const dispatch = useDispatch();
 
    const isFavorited = useSelector(
@@ -40,7 +40,21 @@ const TourCard = ({ _id, title, image, departure, navigate }) => {
             activeOpacity={1}
             style={styles.addFavoriteBtn}
             onPress={() => {
-               isFavorited ? removeFavorite() : addFavorite();
+               if (isFavorited) {
+                  removeFavorite();
+                  toastRef.current.show({
+                     type: 'info',
+                     text: 'Remove from favorites successful',
+                     duration: 1500,
+                  });
+               } else {
+                  addFavorite();
+                  toastRef.current.show({
+                     type: 'info',
+                     text: 'Add to favorites successful',
+                     duration: 1500,
+                  });
+               }
             }}
          >
             <AntDesign

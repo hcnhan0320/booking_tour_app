@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 
 import { Colors, Fonts } from '../constants';
@@ -37,6 +37,7 @@ const FavoriteCard = ({
    departure,
    duration,
    navigate,
+   handleRemovedToastMessage,
    removeFavorite,
 }) => {
    const translateX = useSharedValue(0);
@@ -54,7 +55,12 @@ const FavoriteCard = ({
             translateX.value = withTiming(-SCREEN_WIDTH);
             itemHeight.value = withTiming(0);
             marginVertical.value = withTiming(0);
-            opacity.value = withTiming(0);
+            opacity.value = withTiming(0, undefined, (finish) => {
+               if (finish) {
+                  runOnJS(removeFavorite)(_id);
+                  runOnJS(handleRemovedToastMessage)();
+               }
+            });
          } else {
             translateX.value = withTiming(0);
          }
@@ -84,12 +90,6 @@ const FavoriteCard = ({
       };
    });
 
-   const endPanGesture = () => {
-      if (translateX.value < TRANSLATE_X_THRESHOLD) {
-         removeFavorite(_id);
-      }
-   };
-
    return (
       <Animated.View style={[styles.container, rContainerStyle]} key={_id}>
          <Animated.View style={[styles.deleteBox, rIconContainerStyle]}>
@@ -99,15 +99,18 @@ const FavoriteCard = ({
                color={Colors.DEFAULT_RED}
             />
          </Animated.View>
-         <PanGestureHandler
-            onGestureEvent={panGesture}
-            // onEnded={endPanGesture}
-         >
+         <PanGestureHandler onGestureEvent={panGesture}>
             <Animated.View style={[styles.favoriteContainer, rStyle]}>
-               <Image
-                  source={{ uri: StaticImageService.getTourImage(image[0]) }}
-                  style={styles.posterStyle}
-               />
+               <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => navigate(_id)}
+               >
+                  <Image
+                     source={{ uri: StaticImageService.getTourImage(image[0]) }}
+                     style={styles.posterStyle}
+                  />
+               </TouchableOpacity>
+
                <View style={styles.infoSection}>
                   <View style={styles.rowAndCenter}>
                      <Text style={styles.titleText}>{title}</Text>

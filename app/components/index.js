@@ -9,7 +9,8 @@ import CategoryListItem from './CategoryListItem';
 import FoodCard from './FoodCard';
 import CircleCardImage from './CircleCardImage';
 import FavoriteCard from './FavoriteCard';
-
+import TourMediumCard from './TourMediumCard';
+import Toast from './ToastMessage';
 export {
    OnboardingCard,
    Separator,
@@ -22,4 +23,6 @@ export {
    FoodCard,
    CircleCardImage,
    FavoriteCard,
+   TourMediumCard,
+   Toast,
 };

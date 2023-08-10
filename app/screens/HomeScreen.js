@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
    StyleSheet,
    Text,
@@ -15,6 +15,8 @@ import {
    TourCard,
    RestaurantMediumCard,
    Separator,
+   Toast,
+   TourMediumCard,
 } from '../components';
 import { Colors, Fonts, Images, Mock } from '../constants';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -25,12 +27,17 @@ import { Display } from '../utils';
 
 const HomeScreen = ({ navigation }) => {
    const [tours, setTours] = useState(null);
+   const [dailyTours, setDailyTours] = useState(null);
+   const toastRef = useRef();
 
    useEffect(() => {
       const unsubscribe = navigation.addListener('focus', () => {
          TourService.getTours().then((response) => {
             if (response?.status) {
                setTours(response?.data);
+               setDailyTours(
+                  response?.data.filter((tour) => tour.duration === '1 ngày')
+               );
             }
          });
       });
@@ -45,23 +52,24 @@ const HomeScreen = ({ navigation }) => {
             translucent
          />
          <Separator height={StatusBar.currentHeight} />
-         {/* <View style={styles.backgroundCurvedContainer} /> */}
+         {/* toast message */}
+         <Toast ref={toastRef} />
          <View style={styles.headerContainer}>
             <View style={styles.infoContainer}>
                <View style={styles.welcomeSection}>
                   <Image source={Images.AVATAR} style={styles.profileImage} />
                   <Text style={styles.welcomeText}>
-                     Hello,<Text style={styles.nameText}> Nhan!</Text>
+                     Chào,<Text style={styles.nameText}> Nhân!</Text>
                   </Text>
                </View>
                <View style={styles.alertSection}>
                   <Feather name="bell" size={15} color={Colors.DEFAULT_BLACK} />
                </View>
             </View>
-            <Text style={styles.introText}>Find Your Tour</Text>
+            <Text style={styles.introText}>Tìm kiếm tour </Text>
             <View style={styles.searchContainer}>
                <View style={styles.searchSection}>
-                  <Text style={styles.searchText}>Search here..</Text>
+                  <Text style={styles.searchText}>Nhập từ khóa...</Text>
                   <Ionicons
                      name="search-outline"
                      size={18}
@@ -83,23 +91,25 @@ const HomeScreen = ({ navigation }) => {
                </LinearGradient>
             </View>
          </View>
-         <ScrollView style={styles.listContainer}>
+         <View style={styles.listContainer}>
+            {/* tour hàng ngày */}
             <View style={styles.horizontalListContainer}>
                <View style={styles.listHeader}>
-                  <Text style={styles.listHeaderTitle}>Our Properties</Text>
-                  <Text style={styles.listHeaderSubTitle}>View All</Text>
+                  <Text style={styles.listHeaderTitle}>Tour hàng ngày</Text>
+                  <Text style={styles.listHeaderSubTitle}>Xem tất cả</Text>
                </View>
                <FlatList
-                  data={tours}
+                  data={dailyTours}
                   keyExtractor={(item) => item?._id}
                   horizontal
                   showsHorizontalScrollIndicator={false}
-                  ListHeaderComponent={() => <Separator width={20} />}
-                  ListFooterComponent={() => <Separator width={20} />}
+                  ListHeaderComponent={() => <Separator width={30} />}
+                  ListFooterComponent={() => <Separator width={30} />}
                   ItemSeparatorComponent={() => <Separator width={20} />}
                   renderItem={({ item }) => (
                      <TourCard
                         {...item}
+                        toastRef={toastRef}
                         navigate={(tourId) =>
                            navigation.navigate('TourDetail', { tourId })
                         }
@@ -107,58 +117,31 @@ const HomeScreen = ({ navigation }) => {
                   )}
                />
             </View>
-            {/* <View style={styles.sortListContainer}>
-               <TouchableOpacity
-                  style={sortBorderStyle(activeSortItem === 'Recent')}
-                  activeOpacity={0.8}
-                  onPress={() => setActiveSortItem('Recent')}
-               >
-                  <Text style={sortTextStyle(activeSortItem === 'Recent')}>
-                     Recent
-                  </Text>
-               </TouchableOpacity>
-               <TouchableOpacity
-                  style={sortBorderStyle(activeSortItem === 'Favorite')}
-                  activeOpacity={0.8}
-                  onPress={() => setActiveSortItem('Favorite')}
-               >
-                  <Text style={sortTextStyle(activeSortItem === 'Favorite')}>
-                     Favorite
-                  </Text>
-               </TouchableOpacity>
-               <TouchableOpacity
-                  style={sortBorderStyle(activeSortItem === 'Rating')}
-                  activeOpacity={0.8}
-                  onPress={() => setActiveSortItem('Rating')}
-               >
-                  <Text style={sortTextStyle(activeSortItem === 'Rating')}>
-                     Rating
-                  </Text>
-               </TouchableOpacity>
-               <TouchableOpacity
-                  style={sortBorderStyle(activeSortItem === 'Popular')}
-                  activeOpacity={0.8}
-                  onPress={() => setActiveSortItem('Popular')}
-               >
-                  <Text style={sortTextStyle(activeSortItem === 'Popular')}>
-                     Popular
-                  </Text>
-               </TouchableOpacity>
-               <TouchableOpacity
-                  style={sortBorderStyle(activeSortItem === 'Trending')}
-                  activeOpacity={0.8}
-                  onPress={() => setActiveSortItem('Trending')}
-               >
-                  <Text style={sortTextStyle(activeSortItem === 'Trending')}>
-                     Trending
-                  </Text>
-               </TouchableOpacity>
+
+            {/* tour nổi bật */}
+            <View style={styles.horizontalListContainer}>
+               <View style={styles.listHeader}>
+                  <Text style={styles.listHeaderTitle}>Tour nổi bật</Text>
+                  <Text style={styles.listHeaderSubTitle}>Xem tất cả</Text>
+               </View>
+               <FlatList
+                  data={tours}
+                  keyExtractor={(item) => item?._id}
+                  renderItem={({ item }) => (
+                     <TourMediumCard
+                        {...item}
+                        toastRef={toastRef}
+                        navigate={(tourId) =>
+                           navigation.navigate('TourDetail', { tourId })
+                        }
+                     />
+                  )}
+               />
+               <Separator height={Display.setHeight(8)} />
             </View>
-            {restaurants?.map((item) => (
-               <RestaurantMediumCard {...item} key={item?.id} />
-            ))} */}
-            <Separator height={Display.setHeight(5)} />
-         </ScrollView>
+
+            <Separator height={Display.setHeight(8)} />
+         </View>
       </SafeAreaView>
    );
 };
@@ -280,7 +263,7 @@ const styles = StyleSheet.create({
       zIndex: -5,
    },
    horizontalListContainer: {
-      marginTop: 30,
+      marginTop: 20,
    },
    listHeader: {
       flexDirection: 'row',

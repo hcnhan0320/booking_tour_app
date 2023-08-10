@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import {
    StyleSheet,
    Text,
@@ -5,20 +6,31 @@ import {
    SafeAreaView,
    StatusBar,
    FlatList,
+   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
-import { FavoriteCard, Separator } from '../components';
+import { FavoriteCard, Separator, Toast } from '../components';
 import { Colors, Fonts } from '../constants';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback } from 'react';
 import { FavoriteAction } from '../actions';
+import { Display } from '../utils';
 
-const FavoriteScreen = () => {
+const FavoriteScreen = ({ navigation }) => {
    const favorites = useSelector((state) => state?.favoriteState?.favorites);
    const dispatch = useDispatch();
    const removeFavorite = (tourId) =>
       dispatch(FavoriteAction.removeFavorite({ tourId }));
+
+   const toastRef = useRef();
+
+   const handleRemovedToastMessage = () => {
+      toastRef.current.show({
+         type: 'info',
+         text: 'Remove from favorites successful',
+         duration: 1500,
+      });
+   };
    return (
       <SafeAreaView style={styles.container}>
          <StatusBar
@@ -26,14 +38,19 @@ const FavoriteScreen = () => {
             backgroundColor={Colors.DEFAULT_GREEN}
             translucent
          />
+         <Toast ref={toastRef} />
          <Separator height={StatusBar.currentHeight} />
          <View style={styles.headerContainer}>
             <Text style={styles.titleText}>Favorites Tour</Text>
-            <View style={styles.addBtn}>
+            <TouchableOpacity
+               style={styles.addBtn}
+               activeOpacity={0.6}
+               onPress={() => navigation.goBack()}
+            >
                <Ionicons name="add" size={18} color={Colors.DEFAULT_BLACK} />
-            </View>
+            </TouchableOpacity>
          </View>
-         <Separator height={15} />
+         <Separator height={25} />
          <FlatList
             data={favorites}
             key={(item) => item._id}
@@ -42,11 +59,22 @@ const FavoriteScreen = () => {
                return (
                   <FavoriteCard
                      {...item.tour}
+                     handleRemovedToastMessage={() =>
+                        toastRef.current.show({
+                           type: 'info',
+                           text: 'Remove from favorites successful',
+                           duration: 1500,
+                        })
+                     }
                      removeFavorite={removeFavorite}
+                     navigate={(tourId) =>
+                        navigation.navigate('TourDetail', { tourId })
+                     }
                   />
                );
             }}
          />
+         <Separator height={Display.setHeight(8)} />
       </SafeAreaView>
    );
 };
