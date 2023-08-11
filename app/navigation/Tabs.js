@@ -5,6 +5,7 @@ import {
    CartScreen,
    HomeScreen,
    ProfileScreen,
+   SearchScreen,
 } from '../screens';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -41,7 +42,16 @@ export default () => (
          }}
       />
       <BottomTabs.Screen
-         name="Bookmark"
+         name="Search"
+         component={SearchScreen}
+         options={{
+            tabBarIcon: ({ color }) => (
+               <Ionicons name="search" size={23} color={color} />
+            ),
+         }}
+      />
+      <BottomTabs.Screen
+         name="Favorite"
          component={FavoriteScreen}
          options={{
             tabBarIcon: ({ color }) => (
@@ -49,15 +59,7 @@ export default () => (
             ),
          }}
       />
-      <BottomTabs.Screen
-         name="Cart"
-         component={CartScreen}
-         options={{
-            tabBarIcon: ({ color }) => (
-               <Ionicons name="cart" size={23} color={color} />
-            ),
-         }}
-      />
+
       <BottomTabs.Screen
          name="Account"
          component={ProfileScreen}

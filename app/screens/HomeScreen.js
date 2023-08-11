@@ -10,20 +10,14 @@ import {
    ScrollView,
    FlatList,
 } from 'react-native';
-import {
-   CategoryMenuItem,
-   TourCard,
-   RestaurantMediumCard,
-   Separator,
-   Toast,
-   TourMediumCard,
-} from '../components';
+import { TourCard, Separator, Toast, TourMediumCard } from '../components';
 import { Colors, Fonts, Images, Mock } from '../constants';
 import { LinearGradient } from 'expo-linear-gradient';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import Feather from '@expo/vector-icons/Feather';
 import { TourService } from '../services';
 import { Display } from '../utils';
+
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Feather from '@expo/vector-icons/Feather';
 
 const HomeScreen = ({ navigation }) => {
    const [tours, setTours] = useState(null);
@@ -68,14 +62,18 @@ const HomeScreen = ({ navigation }) => {
             </View>
             <Text style={styles.introText}>Tìm kiếm tour </Text>
             <View style={styles.searchContainer}>
-               <View style={styles.searchSection}>
+               <TouchableOpacity
+                  style={styles.searchSection}
+                  activeOpacity={0.7}
+                  onPress={() => navigation.navigate('Search')}
+               >
                   <Text style={styles.searchText}>Nhập từ khóa...</Text>
                   <Ionicons
                      name="search-outline"
                      size={18}
                      color={Colors.SECONDARY_BLACK}
                   />
-               </View>
+               </TouchableOpacity>
                <LinearGradient
                   colors={[Colors.DEFAULT_ORANGE, Colors.DEFAULT_YELLOW]}
                   start={[0, 0]}
@@ -140,7 +138,7 @@ const HomeScreen = ({ navigation }) => {
                <Separator height={Display.setHeight(8)} />
             </View>
 
-            <Separator height={Display.setHeight(8)} />
+            {/* <Separator height={Display.setHeight(8)} /> */}
          </View>
       </SafeAreaView>
    );

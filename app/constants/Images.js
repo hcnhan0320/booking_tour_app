@@ -7,7 +7,7 @@ export default {
    DELIVER: require('../assets/images/deliver.png'),
    FACEBOOK: require('../assets/images/facebook.png'),
    GOOGLE: require('../assets/images/google.png'),
-   LOADING: require('../assets/images/loading.json'),
+   LOADING: require('../assets/images/loading2.json'),
    FRIED_CHIECKEN: require('../assets/images/fried_chicken.png'),
    BURGER: require('../assets/images/burger.png'),
    PIZZA: require('../assets/images/pizza.png'),
@@ -17,6 +17,6 @@ export default {
    DELIVERY_TIME: require('../assets/images/delivery_time.png'),
    DELIVERY_CHARGE: require('../assets/images/delivery_charge.png'),
    MARKER: require('../assets/images/marker.png'),
-   EMPTY_CART: require('../assets/images/empty_cart.png'),
+   EMPTY: require('../assets/images/empty.png'),
    AVATAR: require('../assets/images/nhan.jpg'),
 };

@@ -61,4 +61,33 @@ const getOneTourById = async (tourId) => {
    }
 };
 
-export default { getOneTourById, getTours };
+const searchTour = async (field, value) => {
+   console.log(`ToursService | searchTour`);
+   try {
+      let tourResponse = await axios.get(
+         `${ApiConstants.BACKEND_API.BASE_URL}${ApiConstants.BACKEND_API.SEARCH}?field=${field}&value=${value}`,
+         {
+            headers: authHeader(getToken()),
+         }
+      );
+      if (tourResponse?.status === 200) {
+         return {
+            status: true,
+            message: `Tour data fetched`,
+            data: tourResponse?.data?.data,
+         };
+      } else {
+         return {
+            status: false,
+            message: `Tour data not found`,
+         };
+      }
+   } catch (error) {
+      return {
+         status: false,
+         message: `Tour data not found`,
+      };
+   }
+};
+
+export default { getOneTourById, getTours, searchTour };

@@ -11,8 +11,8 @@ import RestaurantScreen from './RestaurantScreen';
 import CartScreen from './CartScreen';
 import ProfileScreen from './ProfileScreen';
 import FavoriteScreen from './FavoriteScreen';
-
 import TourDetailScreen from './TourDetailScreen';
+import SearchScreen from './SearchScreen';
 export {
    SplashScreen,
    OnboardingScreen,
@@ -27,4 +27,5 @@ export {
    ProfileScreen,
    FavoriteScreen,
    TourDetailScreen,
+   SearchScreen,
 };

@@ -41,7 +41,7 @@ const FavoriteScreen = ({ navigation }) => {
          <Toast ref={toastRef} />
          <Separator height={StatusBar.currentHeight} />
          <View style={styles.headerContainer}>
-            <Text style={styles.titleText}>Favorites Tour</Text>
+            <Text style={styles.titleText}>Danh sách yêu thích</Text>
             <TouchableOpacity
                style={styles.addBtn}
                activeOpacity={0.6}
