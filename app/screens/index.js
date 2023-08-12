@@ -13,6 +13,8 @@ import ProfileScreen from './ProfileScreen';
 import FavoriteScreen from './FavoriteScreen';
 import TourDetailScreen from './TourDetailScreen';
 import SearchScreen from './SearchScreen';
+import BookingInfo from './BookingInfo';
+
 export {
    SplashScreen,
    OnboardingScreen,
@@ -28,4 +30,5 @@ export {
    FavoriteScreen,
    TourDetailScreen,
    SearchScreen,
+   BookingInfo,
 };

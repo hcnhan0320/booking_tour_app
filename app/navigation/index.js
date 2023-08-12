@@ -12,6 +12,7 @@ import {
    HomeScreen,
    RestaurantScreen,
    TourDetailScreen,
+   BookingInfo,
 } from '../screens';
 import { useSelector, useDispatch } from 'react-redux';
 import { GeneralAction } from '../actions';
@@ -65,13 +66,10 @@ const AppNav = () => {
                <>
                   <Stack.Screen name="HomeTabs" component={HomeTabs} />
                   <Stack.Screen
-                     name="Restaurant"
-                     component={RestaurantScreen}
-                  />
-                  <Stack.Screen
                      name="TourDetail"
                      component={TourDetailScreen}
                   />
+                  <Stack.Screen name="BookingInfo" component={BookingInfo} />
                </>
             )}
          </Stack.Navigator>

@@ -26,6 +26,7 @@ const BACKEND_API = {
    TOUR: '/tour',
    FAVORITE: '/favorite',
    SEARCH: '/search',
+   PAYMENT: '/payment',
 };
 
 export default { COUNTRY_FLAG, BACKEND_API, STATIC_IMAGE };

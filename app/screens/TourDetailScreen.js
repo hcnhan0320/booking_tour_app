@@ -307,11 +307,18 @@ const TourDetailScreen = ({ route, navigation }) => {
                      )}
                   </Text>
                </View>
-               <View style={styles.bookingBtn}>
+               <TouchableOpacity
+                  style={styles.bookingBtn}
+                  onPress={() =>
+                     navigation.navigate('BookingInfo', {
+                        title: detailsTour.title,
+                     })
+                  }
+               >
                   <Text style={styles.bookingText}>
                      Tiếp tục <AntDesign name="arrowright" size={18} />
                   </Text>
-               </View>
+               </TouchableOpacity>
             </View>
          </View>
       </SafeAreaView>

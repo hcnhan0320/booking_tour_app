@@ -2,6 +2,10 @@ import { useFonts } from 'expo-font';
 import AppNav from './app/navigation';
 import { Store } from './app/Store';
 import { Provider } from 'react-redux';
+import { StripeProvider } from '@stripe/stripe-react-native';
+
+const STRIPE_PUBLIC_KEY =
+   'pk_test_51Ne6koHuLJwbB1osD4deCI6qd7cN0nZMyQNeCyI7tVoIn73V9pt5IAePVNR8dlKVSNgOTfQ2yzDmDv8sL2xX2FQN002TYFv4uH';
 
 export default function App() {
    const [fontsLoaded] = useFonts({
@@ -22,7 +26,9 @@ export default function App() {
 
    return (
       <Provider store={Store}>
-         <AppNav />
+         <StripeProvider publishableKey={STRIPE_PUBLIC_KEY}>
+            <AppNav />
+         </StripeProvider>
       </Provider>
    );
 }
