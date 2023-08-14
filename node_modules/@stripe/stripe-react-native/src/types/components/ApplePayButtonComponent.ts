@@ -1,28 +1,11 @@
-import type { StyleProp, ViewStyle, NativeSyntheticEvent } from 'react-native';
-import type { ShippingMethod, ShippingContact } from '../PlatformPay';
+import type { StyleProp, ViewStyle } from 'react-native';
+
 export interface NativeProps {
   style?: StyleProp<ViewStyle>;
-  disabled?: boolean;
   type?: number;
   buttonStyle?: number;
   borderRadius?: number;
-  onPressAction?(): void;
-  onShippingMethodSelectedAction?: (
-    value: NativeSyntheticEvent<{
-      shippingMethod: ShippingMethod;
-    }>
-  ) => void;
-  onShippingContactSelectedAction?: (
-    value: NativeSyntheticEvent<{
-      shippingContact: ShippingContact;
-    }>
-  ) => void;
-  onCouponCodeEnteredAction?: (
-    value: NativeSyntheticEvent<{
-      couponCode: string;
-    }>
-  ) => void;
-  onOrderTrackingAction?: () => void;
+  onPressAction(): void;
 }
 
 export type Type =
@@ -41,7 +24,6 @@ export type Type =
   | 'rent'
   | 'support'
   | 'contribute'
-  | 'tip'
-  | 'continue';
+  | 'tip';
 
 export type Style = 'white' | 'whiteOutline' | 'black' | 'automatic';

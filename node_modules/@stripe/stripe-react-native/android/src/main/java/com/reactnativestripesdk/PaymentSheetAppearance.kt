@@ -1,30 +1,28 @@
 package com.reactnativestripesdk
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import com.facebook.react.bridge.ReactContext
 import com.reactnativestripesdk.utils.PaymentSheetAppearanceException
 import com.stripe.android.paymentsheet.PaymentSheet
 
-fun buildPaymentSheetAppearance(userParams: Bundle?, context: Context): PaymentSheet.Appearance {
+fun PaymentSheetFragment.buildPaymentSheetAppearance(userParams: Bundle?): PaymentSheet.Appearance {
   val colorParams = userParams?.getBundle(PaymentSheetAppearanceKeys.COLORS)
   val lightColorParams = colorParams?.getBundle(PaymentSheetAppearanceKeys.LIGHT) ?: colorParams
   val darkColorParams = colorParams?.getBundle(PaymentSheetAppearanceKeys.DARK) ?: colorParams
 
   return PaymentSheet.Appearance(
-    typography = buildTypography(userParams?.getBundle(PaymentSheetAppearanceKeys.FONT), context),
+    typography = buildTypography(userParams?.getBundle(PaymentSheetAppearanceKeys.FONT)),
     colorsLight = buildColors(lightColorParams, PaymentSheet.Colors.defaultLight),
     colorsDark = buildColors(darkColorParams, PaymentSheet.Colors.defaultDark),
     shapes = buildShapes(userParams?.getBundle(PaymentSheetAppearanceKeys.SHAPES)),
-    primaryButton = buildPrimaryButton(userParams?.getBundle(PaymentSheetAppearanceKeys.PRIMARY_BUTTON), context)
+    primaryButton = buildPrimaryButton(userParams?.getBundle(PaymentSheetAppearanceKeys.PRIMARY_BUTTON))
   )
 }
 
-private fun buildTypography(fontParams: Bundle?, context: Context): PaymentSheet.Typography {
+private fun PaymentSheetFragment.buildTypography(fontParams: Bundle?): PaymentSheet.Typography {
   return PaymentSheet.Typography.default.copy(
     sizeScaleFactor = getFloatOr(fontParams, PaymentSheetAppearanceKeys.SCALE, PaymentSheet.Typography.default.sizeScaleFactor),
-    fontResId = getFontResId(fontParams, PaymentSheetAppearanceKeys.FAMILY, PaymentSheet.Typography.default.fontResId, context)
+    fontResId = getFontResId(fontParams, PaymentSheetAppearanceKeys.FAMILY, PaymentSheet.Typography.default.fontResId)
   )
 }
 
@@ -66,7 +64,7 @@ private fun buildShapes(shapeParams: Bundle?): PaymentSheet.Shapes {
   )
 }
 
-private fun buildPrimaryButton(params: Bundle?, context: Context): PaymentSheet.PrimaryButton {
+private fun PaymentSheetFragment.buildPrimaryButton(params: Bundle?): PaymentSheet.PrimaryButton {
   if (params == null) {
     return PaymentSheet.PrimaryButton()
   }
@@ -85,7 +83,7 @@ private fun buildPrimaryButton(params: Bundle?, context: Context): PaymentSheet.
       borderStrokeWidthDp = getFloatOrNull(shapeParams, PaymentSheetAppearanceKeys.BORDER_WIDTH),
     ),
     typography = PaymentSheet.PrimaryButtonTypography(
-      fontResId = getFontResId(fontParams, PaymentSheetAppearanceKeys.FAMILY, null, context)
+      fontResId = getFontResId(fontParams, PaymentSheetAppearanceKeys.FAMILY, null)
     )
   )
 }
@@ -122,7 +120,7 @@ private fun getFloatOrNull(bundle: Bundle?, key: String): Float? {
 }
 
 @Throws(PaymentSheetAppearanceException::class)
-private fun getFontResId(bundle: Bundle?, key: String, defaultValue: Int?, context: Context): Int? {
+private fun PaymentSheetFragment.getFontResId(bundle: Bundle?, key: String, defaultValue: Int?): Int? {
   val fontErrorPrefix = "Encountered an error when setting a custom font:"
   if (bundle?.containsKey(key) != true) {
     return defaultValue
@@ -136,7 +134,7 @@ private fun getFontResId(bundle: Bundle?, key: String, defaultValue: Int?, conte
     )
   }
 
-  val id = context.resources.getIdentifier(fontFileName, "font", context.packageName)
+  val id = resources.getIdentifier(fontFileName, "font", context?.packageName)
   if (id == 0) {
     throw PaymentSheetAppearanceException("$fontErrorPrefix Failed to find font: $fontFileName")
   } else {

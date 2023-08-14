@@ -27,6 +27,7 @@ const BACKEND_API = {
    FAVORITE: '/favorite',
    SEARCH: '/search',
    PAYMENT: '/payment',
+   BOOKING: '/booking',
 };
 
 export default { COUNTRY_FLAG, BACKEND_API, STATIC_IMAGE };

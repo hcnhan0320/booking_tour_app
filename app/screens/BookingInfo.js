@@ -8,9 +8,9 @@ import {
    TextInput,
 } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Separator } from '../components';
-import { Colors, Fonts } from '../constants';
+import { Colors, Fonts, General } from '../constants';
 
 import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -21,6 +21,9 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Display } from '../utils';
 import { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useSelector } from 'react-redux';
+import { BookingService, PaymentService } from '../services';
+import { useStripe } from '@stripe/stripe-react-native';
 import { Alert } from 'react-native';
 
 const adult = [
@@ -50,22 +53,27 @@ const children = [
 ];
 
 const BookingInfo = ({ route, navigation }) => {
-   const { title } = route.params;
+   const { title, tourId, adultPrice, childrenPrice } = route.params;
+
+   const userData = useSelector((state) => state?.generalState?.userData);
+   const email = userData?.data?.email;
 
    const [isAdultFocus, setIsAdultFocus] = useState(false);
    const [isChildrenFocus, setIsChildrenFocus] = useState(false);
 
    const [fullName, setfullName] = useState('');
-   const [email, setEmail] = useState('');
    const [phoneNum, setPhoneNum] = useState('');
-   const [adultAmount, setAdultAmount] = useState([]);
-   const [chilrenAmount, setChilrenAmount] = useState([]);
+   const [adultAmount, setAdultAmount] = useState(0);
+   const [chilrenAmount, setChilrenAmount] = useState(0);
    const [departureDay, setDepartureDay] = useState('');
    const [departure, setDeparture] = useState('');
-   const [total, setTotal] = useState(0);
 
    const [date, setDate] = useState(new Date());
    const [showPicker, setShowPicker] = useState(false);
+
+   const [paymentIntent, setPaymentIntent] = useState('');
+
+   const { initPaymentSheet, presentPaymentSheet } = useStripe();
 
    const toggleShowPicker = () => {
       setShowPicker(!showPicker);
@@ -94,24 +102,59 @@ const BookingInfo = ({ route, navigation }) => {
       toggleShowPicker();
    };
 
-   const totalMoney = (adult, children) => {
-      const money = 1500000;
-      let total = adult * money + children * money;
+   const totalMoney = () => {
+      let total = adultAmount * adultPrice + chilrenAmount * childrenPrice;
       return total;
    };
 
-   const submitForm = () => {
-      let tourInfo = {
-         fullName,
+   const onCheckout = async () => {
+      let usd = Math.floor((totalMoney() / 23000) * 100);
+      const response = await PaymentService.createPaymentIntent({
+         amount: usd,
+      });
+
+      // 2. Initialize the Payment sheet
+      const { error: paymentSheetError } = await initPaymentSheet({
+         merchantDisplayName: 'Example, Inc.',
+         paymentIntentClientSecret: response?.data?.paymentIntent,
+         defaultBillingDetails: {
+            name: 'Jane Doe',
+         },
+         customFlow: false,
+      });
+      if (paymentSheetError) {
+         Alert.alert('Something went wrong', paymentSheetError.message);
+         return;
+      }
+
+      // 3. Present the Payment Sheet from Stripe
+      const { error: paymentError } = await presentPaymentSheet();
+      if (paymentError) {
+         Alert.alert(`Error code: ${paymentError.code}`, paymentError.message);
+         return;
+      }
+
+      // 4. If payment ok -> create the order
+      let bookingInfo = {
+         tourId: tourId,
+         fullname: fullName,
          email,
          phoneNum,
-         adultAmount,
-         chilrenAmount,
-         departureDay,
+         adult: adultAmount,
+         children: chilrenAmount,
+         departureDay: date,
          departure,
-         total,
+         total: totalMoney(),
       };
-      return console.log(tourInfo);
+
+      const bookingResponse = await BookingService.savedBooking(bookingInfo);
+      if (bookingResponse?.status) {
+         Alert.alert(`Đặt tour và thanh toán thành công`);
+         return;
+      } else {
+         Alert.alert(`Đặt tour thất bại`);
+         return;
+      }
    };
 
    return (
@@ -169,7 +212,10 @@ const BookingInfo = ({ route, navigation }) => {
                   placeholderTextColor={Colors.DEFAULT_GREY}
                   selectionColor={Colors.DEFAULT_GREY}
                   style={styles.inputText}
-                  onChangeText={(text) => setEmail(text)}
+                  value={email}
+                  editable={false}
+                  selectTextOnFocus={false}
+                  // onChangeText={(text) => setEmail(text)}
                />
             </View>
          </View>
@@ -320,11 +366,14 @@ const BookingInfo = ({ route, navigation }) => {
          <Separator height={15} />
          <View style={styles.total}>
             <Text style={styles.totalText}>
-               Tổng tiền: {totalMoney(adultAmount, chilrenAmount)} VND
+               Tổng tiền: {General.currencyFormat(totalMoney())}
             </Text>
          </View>
          <Separator height={15} />
-         <TouchableOpacity style={styles.bookingBtn} onPress={submitForm}>
+         <TouchableOpacity
+            style={styles.bookingBtn}
+            onPress={() => onCheckout()}
+         >
             <Text style={styles.bookingText}>Đặt tour</Text>
          </TouchableOpacity>
       </SafeAreaView>

@@ -41,7 +41,6 @@ export enum ApplePayError {
 export enum PaymentSheetError {
   Failed = 'Failed',
   Canceled = 'Canceled',
-  Timeout = 'Timeout',
 }
 
 export type ErrorType =
@@ -81,17 +80,6 @@ export enum VerifyMicrodepositsError {
 }
 
 export enum CollectBankAccountError {
-  Canceled = 'Canceled',
-  Failed = 'Failed',
-  Unknown = 'Unknown',
-}
-
-export enum AddressSheetError {
-  Failed = 'Failed',
-  Canceled = 'Canceled',
-}
-
-export enum PlatformPayError {
   Canceled = 'Canceled',
   Failed = 'Failed',
   Unknown = 'Unknown',

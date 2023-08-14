@@ -312,6 +312,15 @@ const TourDetailScreen = ({ route, navigation }) => {
                   onPress={() =>
                      navigation.navigate('BookingInfo', {
                         title: detailsTour.title,
+                        tourId: tourId,
+                        adultPrice: discountPrice(
+                           detailsTour?.price?.adult,
+                           detailsTour?.promotion
+                        ),
+                        childrenPrice: discountPrice(
+                           detailsTour?.price?.children,
+                           detailsTour?.promotion
+                        ),
                      })
                   }
                >

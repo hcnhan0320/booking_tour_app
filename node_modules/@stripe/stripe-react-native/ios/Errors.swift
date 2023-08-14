@@ -5,7 +5,6 @@ enum ErrorType {
     static let Failed = "Failed"
     static let Canceled = "Canceled"
     static let Unknown = "Unknown"
-    static let Timeout = "Timeout"
 }
 
 class Errors {
