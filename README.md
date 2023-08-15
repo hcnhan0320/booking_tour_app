@@ -33,9 +33,8 @@ Feel free to customize the project as per your requirements and make it your own
 
 # Features
 <p float="left">
-  <img src="https://bobbyhadz.com/images/blog/python-print-tab/thumbnail.webp" width="33%" />
-  <img src="https://bobbyhadz.com/images/blog/what-aws-cdk-bootstrap-do/thumbnail.webp" width="33%" />
-  <img src="https://bobbyhadz.com/images/blog/aws-cdk-subnet-tags/thumbnail.webp" width="33%" />
+  <img src="https://drive.google.com/drive/folders/1-Ulq10FgOgy4bCbVkewxwaK5adfPK66I" width="33%" />
+  <img src="https://drive.google.com/drive/folders/1-Ulq10FgOgy4bCbVkewxwaK5adfPK66I" width="33%" />
 </p>
 
 
