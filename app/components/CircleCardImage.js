@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import React from 'react';
 import { StaticImageService } from '../services';
-import { Display } from '../utils';
 
 const CircleCardImage = ({ image }) => {
    return (

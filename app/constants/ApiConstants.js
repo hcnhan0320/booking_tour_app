@@ -21,8 +21,6 @@ const BACKEND_API = {
    USER_EXIST: '/user-exist',
    USER: '/user',
    REFRESH_TOKEN: '/refresh-token',
-   RESTAURANT: '/restaurant',
-   CART: '/cart',
    TOUR: '/tour',
    FAVORITE: '/favorite',
    SEARCH: '/search',

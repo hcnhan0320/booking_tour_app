@@ -2,12 +2,10 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
    FavoriteScreen,
-   CartScreen,
    HomeScreen,
    ProfileScreen,
    SearchScreen,
 } from '../screens';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import Entypo from '@expo/vector-icons/Entypo';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Display } from '../utils';

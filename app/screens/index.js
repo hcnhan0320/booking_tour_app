@@ -5,10 +5,7 @@ import SignupScreen from './SignupScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
 import RegisterPhoneScreen from './RegisterPhoneScreen';
 import VerificationScreen from './VerificationScreen';
-
 import HomeScreen from './HomeScreen';
-import RestaurantScreen from './RestaurantScreen';
-import CartScreen from './CartScreen';
 import ProfileScreen from './ProfileScreen';
 import FavoriteScreen from './FavoriteScreen';
 import TourDetailScreen from './TourDetailScreen';
@@ -24,8 +21,6 @@ export {
    RegisterPhoneScreen,
    VerificationScreen,
    HomeScreen,
-   RestaurantScreen,
-   CartScreen,
    ProfileScreen,
    FavoriteScreen,
    TourDetailScreen,

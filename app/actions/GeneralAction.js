@@ -1,6 +1,5 @@
 import { AuthenicationService, StorageService } from '../services';
 import UserService from '../services/UserService';
-import CartAction from './CartAction';
 import FavoriteAction from './FavoriteAction';
 
 const types = {
@@ -58,7 +57,6 @@ const appStart = () => {
                      type: types.SET_USER_DATA,
                      payload: userResponse?.data,
                   });
-                  dispatch(CartAction.getCartItems());
                   dispatch(FavoriteAction.getFavorites());
                   dispatch({
                      type: types.SET_IS_APP_LOADING,
