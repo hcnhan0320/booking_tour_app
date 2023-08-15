@@ -32,7 +32,13 @@ npm start
 Feel free to customize the project as per your requirements and make it your own!
 
 # Features
-https://github.com/hcnhan0320/booking_tour_app/assets/102786357/ad64db43-258a-4b05-a697-517ac0228422
+|Onboarding, Sign Up, Sign In                                                                              | Home & Details Screen 
+| https://github.com/hcnhan0320/booking_tour_app/assets/102786357/676a1a40-7418-401a-affa-bf00403cd895     | https://github.com/hcnhan0320/booking_tour_app/assets/102786357/d163a613-1057-446c-a424-582b2898737a
+
+
+
+
+
 
 
 # Contributing
