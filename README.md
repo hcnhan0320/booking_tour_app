@@ -30,6 +30,13 @@ npm start
 Feel free to customize the project as per your requirements and make it your own!
 
 # Features
+<p float="left">
+  <img src="https://github.com/hcnhan0320/booking_tour_app/assets/102786357/659731cc-4322-436a-96ff-0f7a1d629e46" width="33%" />
+  <img src="https://github.com/hcnhan0320/booking_tour_app/assets/102786357/b3c18e5b-3432-4b91-8201-c3fc73bcb676" width="33%" />
+  <img src="https://github.com/hcnhan0320/booking_tour_app/assets/102786357/bc87075d-33b1-4087-ab76-55b60bd39cd0" width="33%" />
+</p>
+
+
 ![Home](https://github.com/hcnhan0320/booking_tour_app/assets/102786357/659731cc-4322-436a-96ff-0f7a1d629e46)
 ![Detail](https://github.com/hcnhan0320/booking_tour_app/assets/102786357/b3c18e5b-3432-4b91-8201-c3fc73bcb676)
 ![Payment](https://github.com/hcnhan0320/booking_tour_app/assets/102786357/bc87075d-33b1-4087-ab76-55b60bd39cd0)
