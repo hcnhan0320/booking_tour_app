@@ -6,7 +6,32 @@ This is a web application designed to facilitate the booking of tours and make t
 • React-native-navigation-v6
 • Redux / Redux-thunk
 
-# Getting Started
+# Demo Features
+Here are some screens of my tour booking app. More functions will be seen in the demo video.
+Video: (available soon)
+
+<div align="center">
+      <table>
+  <tr>
+    <td>Home Screen</td>
+     <td>Details Screen</td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/hcnhan0320/booking_tour_app/assets/102786357/f1af7622-37b4-44de-881e-27545749425c" width=270 height="100%"></td>
+    <td><img src="https://github.com/hcnhan0320/booking_tour_app/assets/102786357/228521e5-12e5-4b20-b9cf-bf1b4f2ceb4d" width=270 height="100%"></td>
+  </tr>
+<tr>
+    <td>Search Screen</td>
+     <td>Booking and Payment Screen</td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/hcnhan0320/booking_tour_app/assets/102786357/80899bad-a520-4997-8211-2076a03234da" width=270 height="100%"></td>
+    <td><img src="https://github.com/hcnhan0320/booking_tour_app/assets/102786357/bc87075d-33b1-4087-ab76-55b60bd39cd0" width=270 height="100%"></td>
+  </tr>
+ </table>
+</div>
+
+# Installation
 
 To get started with the Booking Tour project, follow these steps:
 
@@ -28,28 +53,6 @@ npm install
 npm start
 ```
 Feel free to customize the project as per your requirements and make it your own!
-
-# Features
-<div align="center">
-      <table>
-  <tr>
-    <td>Home Screen</td>
-     <td>Details Screen</td>
-  </tr>
-  <tr>
-    <td><img src="https://github.com/hcnhan0320/booking_tour_app/assets/102786357/f1af7622-37b4-44de-881e-27545749425c" width=270 height="100%"></td>
-    <td><img src="https://github.com/hcnhan0320/booking_tour_app/assets/102786357/228521e5-12e5-4b20-b9cf-bf1b4f2ceb4d" width=270 height="100%"></td>
-  </tr>
-<tr>
-    <td>Search Screen</td>
-     <td>Booking and Payment Screen</td>
-  </tr>
-  <tr>
-    <td><img src="https://github.com/hcnhan0320/booking_tour_app/assets/102786357/80899bad-a520-4997-8211-2076a03234da" width=270 height="100%"></td>
-    <td><img src="https://github.com/hcnhan0320/booking_tour_app/assets/102786357/bc87075d-33b1-4087-ab76-55b60bd39cd0" width=270 height="100%"></td>
-  </tr>
- </table>
-</div>
 
 # Contributing
 
