@@ -3,7 +3,9 @@
 This is a web application designed to facilitate the booking of tours and make travel planning a seamless experience. It provides various features such as onboarding, sign-in, sign-up, tour browsing, searching for tours, adding favorites, and making tour bookings with secure payment options.
 
 • React Native Expo (~v.48.0.18)
+
 • React-native-navigation-v6
+
 • Redux / Redux-thunk
 
 # Getting Started
