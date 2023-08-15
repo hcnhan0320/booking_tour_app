@@ -32,6 +32,8 @@ npm start
 Feel free to customize the project as per your requirements and make it your own!
 
 # Features
+https://github.com/hcnhan0320/booking_tour_app/assets/102786357/ad64db43-258a-4b05-a697-517ac0228422
+
 
 # Contributing
 
