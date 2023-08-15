@@ -1,6 +1,7 @@
 # Booking Tour Project
 
 This is a web application designed to facilitate the booking of tours and make travel planning a seamless experience. It provides various features such as onboarding, sign-in, sign-up, tour browsing, searching for tours, adding favorites, and making tour bookings with secure payment options.
+
 • React Native Expo (~v.48.0.18)
 • React-native-navigation-v6
 • Redux / Redux-thunk
@@ -10,14 +11,22 @@ This is a web application designed to facilitate the booking of tours and make t
 To get started with the Booking Tour project, follow these steps:
 
 Clone the repository:
+```
 git clone https://github.com/hcnhan0320/booking_tour_app
 npm install
 npm start
-
+```
 Clone backend repository: config your server IP and port in package.json file
+```
+"projectConfig": {
+      "backendApiBaseUrl": "http://{YOUR_IP_ADDRESS}:3000"
+   }
+```
+```
 git clone https://github.com/hcnhan0320/food_delivery_app_backend
-http://localhost:3000
-
+npm install
+npm start
+```
 Feel free to customize the project as per your requirements and make it your own!
 
 # Features
