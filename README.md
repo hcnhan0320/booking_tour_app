@@ -32,20 +32,10 @@ npm start
 Feel free to customize the project as per your requirements and make it your own!
 
 # Features
-| Onboarding, Sign Up, Sign In                                                                              
-| Home & Details Screen 
-
 <p float="left">
-  <video src="
-
-https://github.com/hcnhan0320/booking_tour_app/assets/102786357/cb1fd67b-5f46-4533-90f5-aac94596d246
-
-" width="50%" />
-  <video src="
-
-https://github.com/hcnhan0320/booking_tour_app/assets/102786357/fecb1869-e589-41e0-a7f9-242c0424c30d
-
-" width="50%" />
+  <img src="https://bobbyhadz.com/images/blog/python-print-tab/thumbnail.webp" width="33%" />
+  <img src="https://bobbyhadz.com/images/blog/what-aws-cdk-bootstrap-do/thumbnail.webp" width="33%" />
+  <img src="https://bobbyhadz.com/images/blog/aws-cdk-subnet-tags/thumbnail.webp" width="33%" />
 </p>
 
 
