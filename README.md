@@ -32,9 +32,21 @@ npm start
 Feel free to customize the project as per your requirements and make it your own!
 
 # Features
-|Onboarding, Sign Up, Sign In                                                                              | Home & Details Screen 
-| https://github.com/hcnhan0320/booking_tour_app/assets/102786357/676a1a40-7418-401a-affa-bf00403cd895     | https://github.com/hcnhan0320/booking_tour_app/assets/102786357/d163a613-1057-446c-a424-582b2898737a
+| Onboarding, Sign Up, Sign In                                                                              
+| Home & Details Screen 
 
+<p float="left">
+  <video src="
+
+https://github.com/hcnhan0320/booking_tour_app/assets/102786357/cb1fd67b-5f46-4533-90f5-aac94596d246
+
+" width="50%" />
+  <video src="
+
+https://github.com/hcnhan0320/booking_tour_app/assets/102786357/fecb1869-e589-41e0-a7f9-242c0424c30d
+
+" width="50%" />
+</p>
 
 
 
