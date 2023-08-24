@@ -57,6 +57,7 @@ const BookingInfo = ({ route, navigation }) => {
 
    const userData = useSelector((state) => state?.generalState?.userData);
    const email = userData?.data?.email;
+   console.log(userData);
 
    const [isAdultFocus, setIsAdultFocus] = useState(false);
    const [isChildrenFocus, setIsChildrenFocus] = useState(false);
@@ -70,8 +71,6 @@ const BookingInfo = ({ route, navigation }) => {
 
    const [date, setDate] = useState(new Date());
    const [showPicker, setShowPicker] = useState(false);
-
-   const [paymentIntent, setPaymentIntent] = useState('');
 
    const { initPaymentSheet, presentPaymentSheet } = useStripe();
 

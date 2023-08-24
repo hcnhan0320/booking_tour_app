@@ -9,6 +9,7 @@ import {
    StatusBar,
    ScrollView,
    FlatList,
+   Dimensions,
 } from 'react-native';
 import { TourCard, Separator, Toast, TourMediumCard } from '../components';
 import { Colors, Fonts, Images, Mock } from '../constants';
@@ -20,9 +21,10 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Feather from '@expo/vector-icons/Feather';
 
 const HomeScreen = ({ navigation }) => {
-   const [tours, setTours] = useState(null);
-   const [dailyTours, setDailyTours] = useState(null);
+   const [tours, setTours] = useState([]);
+   const [dailyTours, setDailyTours] = useState([]);
    const toastRef = useRef();
+   const [selectedTour, setSelectedTour] = useState();
 
    useEffect(() => {
       const unsubscribe = navigation.addListener('focus', () => {
@@ -89,15 +91,15 @@ const HomeScreen = ({ navigation }) => {
                </LinearGradient>
             </View>
          </View>
-         <View style={styles.listContainer}>
+         <ScrollView style={styles.listContainer} scroll>
             {/* tour hàng ngày */}
             <View style={styles.horizontalListContainer}>
                <View style={styles.listHeader}>
-                  <Text style={styles.listHeaderTitle}>Tour hàng ngày</Text>
+                  <Text style={styles.listHeaderTitle}>Tour nổi bật</Text>
                   <Text style={styles.listHeaderSubTitle}>Xem tất cả</Text>
                </View>
                <FlatList
-                  data={dailyTours}
+                  data={tours}
                   keyExtractor={(item) => item?._id}
                   horizontal
                   showsHorizontalScrollIndicator={false}
@@ -108,9 +110,11 @@ const HomeScreen = ({ navigation }) => {
                      <TourCard
                         {...item}
                         toastRef={toastRef}
-                        navigate={(tourId) =>
-                           navigation.navigate('TourDetail', { tourId })
-                        }
+                        selectedTour={selectedTour}
+                        navigate={(tourId) => {
+                           navigation.navigate('TourDetail', { tourId });
+                           setSelectedTour(tourId);
+                        }}
                      />
                   )}
                />
@@ -119,27 +123,21 @@ const HomeScreen = ({ navigation }) => {
             {/* tour nổi bật */}
             <View style={styles.horizontalListContainer}>
                <View style={styles.listHeader}>
-                  <Text style={styles.listHeaderTitle}>Tour nổi bật</Text>
+                  <Text style={styles.listHeaderTitle}>Tour hàng ngày</Text>
                   <Text style={styles.listHeaderSubTitle}>Xem tất cả</Text>
                </View>
-               <FlatList
-                  data={tours}
-                  keyExtractor={(item) => item?._id}
-                  renderItem={({ item }) => (
-                     <TourMediumCard
-                        {...item}
-                        toastRef={toastRef}
-                        navigate={(tourId) =>
-                           navigation.navigate('TourDetail', { tourId })
-                        }
-                     />
-                  )}
-               />
-               <Separator height={Display.setHeight(8)} />
+               {dailyTours.map((item) => (
+                  <TourMediumCard
+                     {...item}
+                     toastRef={toastRef}
+                     navigate={(tourId) =>
+                        navigation.navigate('TourDetail', { tourId })
+                     }
+                  />
+               ))}
             </View>
-
-            {/* <Separator height={Display.setHeight(8)} /> */}
-         </View>
+            <Separator height={Display.setHeight(8)} />
+         </ScrollView>
       </SafeAreaView>
    );
 };

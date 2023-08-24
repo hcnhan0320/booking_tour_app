@@ -7,9 +7,9 @@ const ONBOARDING_CONTENTS = [
    },
    {
       image: 'BOOKING',
-      title: 'Easy hotel booking',
+      title: 'Easy tour booking',
       content:
-         'Use our app to quickly and easily search for and book hotels. Stay up-to-date with special promotions and enjoy great amenities at hotels around the world.',
+         'Use our app to quickly and easily search for and book tours. Stay up-to-date with special promotions and enjoy great tour around the world.',
    },
    {
       image: 'EXPERIENCE',

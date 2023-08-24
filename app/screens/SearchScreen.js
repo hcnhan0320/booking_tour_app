@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import {
    StyleSheet,
    Text,
@@ -25,6 +25,8 @@ const SearchScreen = ({ navigation }) => {
    const [tours, setTours] = useState([]);
    const [isLoading, setIsLoading] = useState(false);
    const toastRef = useRef();
+
+   const inputRef = useRef();
 
    const handleSearch = (search) => {
       if (search && search.length > 1) {
@@ -64,6 +66,7 @@ const SearchScreen = ({ navigation }) => {
                      placeholderTextColor={Colors.DEFAULT_GREY}
                      onChangeText={handleTextDebounce}
                      selectionColor={Colors.DEFAULT_ORANGE}
+                     ref={inputRef}
                   />
                   <Ionicons
                      name="search-outline"

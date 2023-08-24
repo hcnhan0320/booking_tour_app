@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { Colors } from '../constants';
 
 const containerStyle = (size, isActive) => ({
-   backgroundColor: isActive ? Colors.DEFAULT_GREEN : Colors.DEFAULT_GREY,
+   backgroundColor: isActive ? Colors.DEFAULT_ORANGE : Colors.DEFAULT_GREY,
    height: 32 * size,
    width: 64 * size,
    borderRadius: 32,
@@ -57,18 +57,18 @@ const ToggleButton = ({ size }) => {
 
 export default ToggleButton;
 
-const styles = StyleSheet.create({
-   container: {
-      backgroundColor: Colors.DEFAULT_GREEN,
-      height: 32,
-      width: 64,
-      borderRadius: 32,
-      padding: 4,
-   },
-   toggle: {
-      height: 24,
-      width: 24,
-      backgroundColor: Colors.DEFAULT_WHITE,
-      borderRadius: 32,
-   },
-});
+// const styles = StyleSheet.create({
+//    container: {
+//       backgroundColor: Colors.DEFAULT_GREEN,
+//       height: 32,
+//       width: 64,
+//       borderRadius: 32,
+//       padding: 4,
+//    },
+//    toggle: {
+//       height: 24,
+//       width: 24,
+//       backgroundColor: Colors.DEFAULT_WHITE,
+//       borderRadius: 32,
+//    },
+// });

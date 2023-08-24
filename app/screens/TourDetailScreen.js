@@ -126,6 +126,7 @@ const TourDetailScreen = ({ route, navigation }) => {
          <View style={styles.imgTourContainer}>
             <Animated.FlatList
                data={detailsTour?.image}
+               key={(item) => item.index}
                keyExtractor={(item) => item.index}
                horizontal
                showsHorizontalScrollIndicator={false}

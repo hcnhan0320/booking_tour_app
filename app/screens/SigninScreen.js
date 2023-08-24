@@ -69,7 +69,7 @@ const SigninScreen = ({ navigation }) => {
          </View>
          <Text style={styles.title}>Welcome</Text>
          <Text style={styles.content}>
-            Enter your username and password, and enjoy ordering food
+            Enter your username and password, and choose your tour
          </Text>
          <View style={styles.inputContainer}>
             <View style={styles.inputSubContainer}>

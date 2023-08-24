@@ -15,7 +15,15 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 const truncate = (input) =>
    input?.length > 23 ? `${input.substring(0, 23)}...` : input;
 
-const TourCard = ({ _id, title, image, departure, toastRef, navigate }) => {
+const TourCard = ({
+   _id,
+   title,
+   image,
+   departure,
+   selectedTour,
+   toastRef,
+   navigate,
+}) => {
    const dispatch = useDispatch();
 
    const isFavorited = useSelector(
@@ -32,7 +40,7 @@ const TourCard = ({ _id, title, image, departure, toastRef, navigate }) => {
    return (
       <TouchableOpacity
          key={_id}
-         style={styles.container}
+         style={styles.container(selectedTour, _id)}
          activeOpacity={0.8}
          onPress={() => navigate(_id)}
       >
@@ -69,7 +77,9 @@ const TourCard = ({ _id, title, image, departure, toastRef, navigate }) => {
          />
          <View style={styles.infoContainer}>
             <View style={styles.infoSection}>
-               <Text style={styles.titleText}>{truncate(title)}</Text>
+               <Text style={styles.titleText(selectedTour, _id)}>
+                  {truncate(title)}
+               </Text>
                <View style={styles.locationSection}>
                   <Ionicons
                      name="location"
@@ -100,10 +110,11 @@ const TourCard = ({ _id, title, image, departure, toastRef, navigate }) => {
 export default TourCard;
 
 const styles = StyleSheet.create({
-   container: {
+   container: (selectedTour, _id) => ({
       flex: 1,
       justifyContent: 'center',
-      backgroundColor: Colors.DEFAULT_WHITE,
+      backgroundColor:
+         selectedTour == _id ? Colors.SECONDARY_BLACK : Colors.DEFAULT_WHITE,
       borderRadius: 25,
       marginVertical: 10,
       // add shadow
@@ -115,7 +126,7 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.12,
       shadowRadius: 3.84,
       elevation: 3,
-   },
+   }),
    addFavoriteBtn: {
       position: 'absolute',
       top: 20,
@@ -140,12 +151,12 @@ const styles = StyleSheet.create({
       marginHorizontal: 20,
    },
    infoSection: { marginBottom: 20 },
-   titleText: {
+   titleText: (selectedTour, _id) => ({
       fontSize: 18,
       lineHeight: 18 * 1.4,
       fontFamily: Fonts.POPPINS_SEMI_BOLD,
-      color: Colors.DEFAULT_BLACK,
-   },
+      color: selectedTour == _id ? Colors.DEFAULT_WHITE : Colors.DEFAULT_BLACK,
+   }),
    locationSection: {
       flexDirection: 'row',
       alignItems: 'center',

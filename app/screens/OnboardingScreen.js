@@ -51,7 +51,7 @@ const OnboardingScreen = ({ navigation }) => {
 
    const navigate = () => {
       StorageService.setFirstTimeUse().then(() => {
-         dispatch(GeneralAction.seIsFirstTimeUse());
+         dispatch(GeneralAction.setIsFirstTimeUse());
       });
    };
 

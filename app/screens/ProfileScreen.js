@@ -31,7 +31,7 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.container}>
          <StatusBar
             barStyle="light-content"
-            backgroundColor={Colors.DEFAULT_GREEN}
+            backgroundColor={Colors.DEFAULT_ORANGE}
             translucent
          />
          <Separator height={StatusBar.currentHeight} />
@@ -56,8 +56,8 @@ const ProfileScreen = ({ navigation }) => {
                <Image style={styles.profileImage} source={Images.AVATAR} />
             </View>
             <View style={styles.profileTextContainer}>
-               <Text style={styles.nameText}>Ameen Farook</Text>
-               <Text style={styles.emailText}>ameeen.faroook@gmail.com</Text>
+               <Text style={styles.nameText}>Nhân</Text>
+               <Text style={styles.emailText}>hcnhan203@gmail.com</Text>
             </View>
          </View>
          <View style={styles.menuContainer}>
@@ -66,7 +66,7 @@ const ProfileScreen = ({ navigation }) => {
                   <MaterialCommunityIcons
                      name="truck-fast-outline"
                      size={18}
-                     color={Colors.DEFAULT_GREEN}
+                     color={Colors.DEFAULT_ORANGE}
                   />
                </View>
                <Text style={styles.menuText}>My All {'\n'}Orders</Text>
@@ -112,7 +112,7 @@ const ProfileScreen = ({ navigation }) => {
                   <Ionicons
                      name="person-outline"
                      size={18}
-                     color={Colors.DEFAULT_GREEN}
+                     color={Colors.DEFAULT_ORANGE}
                   />
                   <Text style={styles.sectionText}>Manage Profile</Text>
                </View>
@@ -130,7 +130,7 @@ const ProfileScreen = ({ navigation }) => {
                   <Ionicons
                      name="card-outline"
                      size={18}
-                     color={Colors.DEFAULT_GREEN}
+                     color={Colors.DEFAULT_ORANGE}
                   />
                   <Text style={styles.sectionText}>Payment</Text>
                </View>
@@ -144,14 +144,22 @@ const ProfileScreen = ({ navigation }) => {
             <Text style={styles.sectionHeaderText}>Notification</Text>
             <View style={styles.sectionContainer} activeOpacity={0.8}>
                <View style={styles.sectionTextContainer}>
-                  <Feather name="bell" size={18} color={Colors.DEFAULT_GREEN} />
+                  <Feather
+                     name="bell"
+                     size={18}
+                     color={Colors.DEFAULT_ORANGE}
+                  />
                   <Text style={styles.sectionText}>Notification</Text>
                </View>
                <ToggleButton size={0.5} />
             </View>
             <View style={styles.sectionContainer} activeOpacity={0.8}>
                <View style={styles.sectionTextContainer}>
-                  <Feather name="bell" size={18} color={Colors.DEFAULT_GREEN} />
+                  <Feather
+                     name="bell"
+                     size={18}
+                     color={Colors.DEFAULT_ORANGE}
+                  />
                   <Text style={styles.sectionText}>
                      Promos & Offers Notification
                   </Text>
@@ -165,7 +173,7 @@ const ProfileScreen = ({ navigation }) => {
                   <Ionicons
                      name="ios-color-palette-outline"
                      size={18}
-                     color={Colors.DEFAULT_GREEN}
+                     color={Colors.DEFAULT_ORANGE}
                   />
                   <Text style={styles.sectionText}>Dark Mode</Text>
                </View>
@@ -180,7 +188,7 @@ const ProfileScreen = ({ navigation }) => {
                   <MaterialCommunityIcons
                      name="logout"
                      size={18}
-                     color={Colors.DEFAULT_GREEN}
+                     color={Colors.DEFAULT_ORANGE}
                   />
                   <Text style={styles.sectionText}>Logout</Text>
                </TouchableOpacity>
@@ -196,7 +204,7 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.SECONDARY_WHITE,
    },
    backgroundCurvedContainer: {
-      backgroundColor: Colors.DEFAULT_GREEN,
+      backgroundColor: Colors.DEFAULT_ORANGE,
       height: 2000,
       position: 'absolute',
       top: -1 * (2000 - 230),
@@ -243,30 +251,30 @@ const styles = StyleSheet.create({
    },
    profileImageContainer: {
       backgroundColor: Colors.DEFAULT_WHITE,
-      borderRadius: 32,
+      borderRadius: 50,
       justifyContent: 'center',
       alignItems: 'center',
       padding: 1,
       elevation: 3,
    },
    profileImage: {
-      width: Display.setWidth(15),
-      height: Display.setWidth(15),
-      borderRadius: 32,
+      width: Display.setWidth(20),
+      height: Display.setWidth(20),
+      borderRadius: 50,
    },
    profileTextContainer: {
-      marginLeft: 10,
+      marginLeft: 15,
    },
    nameText: {
-      fontSize: 14,
-      fontFamily: Fonts.POPPINS_REGULAR,
-      lineHeight: 14 * 1.4,
+      fontSize: 18,
+      fontFamily: Fonts.POPPINS_SEMI_BOLD,
+      lineHeight: 18 * 1.4,
       color: Colors.DEFAULT_WHITE,
    },
    emailText: {
-      fontSize: 10,
+      fontSize: 14,
       fontFamily: Fonts.POPPINS_REGULAR,
-      lineHeight: 10 * 1.4,
+      lineHeight: 14 * 1.4,
       color: Colors.DEFAULT_WHITE,
    },
    menuContainer: {
@@ -292,9 +300,9 @@ const styles = StyleSheet.create({
       borderRadius: 32,
    },
    menuText: {
-      fontSize: 12,
+      fontSize: 14,
       fontFamily: Fonts.POPPINS_SEMI_BOLD,
-      lineHeight: 12 * 1.4,
+      lineHeight: 14 * 1.4,
       color: Colors.DEFAULT_BLACK,
       textAlign: 'center',
       marginTop: 5,
@@ -309,9 +317,9 @@ const styles = StyleSheet.create({
       paddingBottom: 20,
    },
    sectionHeaderText: {
-      fontSize: 14,
+      fontSize: 16,
       fontFamily: Fonts.POPPINS_SEMI_BOLD,
-      lineHeight: 14 * 1.4,
+      lineHeight: 16 * 1.4,
       color: Colors.DEFAULT_BLACK,
       marginTop: 25,
    },
@@ -326,9 +334,9 @@ const styles = StyleSheet.create({
       alignItems: 'center',
    },
    sectionText: {
-      fontSize: 13,
+      fontSize: 14,
       fontFamily: Fonts.POPPINS_REGULAR,
-      lineHeight: 13 * 1.4,
+      lineHeight: 14 * 1.4,
       color: Colors.INACTIVE_GREY,
       marginLeft: 10,
    },
